@@ -2,10 +2,11 @@
 
 import { prisma } from "@vendaflow/db";
 import { AuthError } from "next-auth";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { z } from "zod";
 
 import { signIn } from "@/lib/auth";
+import { rateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -17,6 +18,15 @@ export interface LoginResult {
   error?: string;
 }
 
+async function clientIp(): Promise<string> {
+  const headerList = await headers();
+  return (
+    headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    headerList.get("x-real-ip") ||
+    "unknown"
+  );
+}
+
 export async function loginAction(formData: FormData): Promise<LoginResult> {
   const parsed = loginSchema.safeParse({
     email: formData.get("email"),
@@ -24,6 +34,23 @@ export async function loginAction(formData: FormData): Promise<LoginResult> {
   });
   if (!parsed.success) {
     return { ok: false, error: "Preencha e-mail e senha" };
+  }
+
+  // Anti brute-force: janela por IP + por e-mail alvo.
+  const ip = await clientIp();
+  const [byIp, byEmail] = await Promise.all([
+    rateLimit(`login:ip:${ip}`, RATE_LIMITS.login.max, RATE_LIMITS.login.windowSeconds),
+    rateLimit(
+      `login:email:${parsed.data.email.toLowerCase()}`,
+      RATE_LIMITS.login.max,
+      RATE_LIMITS.login.windowSeconds,
+    ),
+  ]);
+  if (!byIp.allowed || !byEmail.allowed) {
+    return {
+      ok: false,
+      error: "Muitas tentativas — aguarde alguns minutos e tente de novo.",
+    };
   }
 
   try {

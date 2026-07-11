@@ -1,3 +1,5 @@
+import { timingSafeEqual } from "node:crypto";
+
 import { QUEUES } from "@vendaflow/core";
 import { prisma } from "@vendaflow/db";
 import {
@@ -12,6 +14,14 @@ import { getQueue } from "@/lib/queues";
 import { rateLimit, RATE_LIMITS } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
+
+/** Comparação de secret resistente a timing attack. */
+function timingSafeSecretEqual(expected: string, received: string): boolean {
+  const a = Buffer.from(expected);
+  const b = Buffer.from(received);
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
 
 /**
  * Webhook de entrada da Evolution API (messages.upsert).
@@ -37,7 +47,7 @@ export async function POST(
   const endpoint = await prisma.webhookEndpoint.findUnique({
     where: { workspaceId_provider: { workspaceId, provider: "EVOLUTION" } },
   });
-  if (!endpoint || !secret || endpoint.secret !== secret) {
+  if (!endpoint || !secret || !timingSafeSecretEqual(endpoint.secret, secret)) {
     return NextResponse.json({ error: "não autorizado" }, { status: 401 });
   }
 

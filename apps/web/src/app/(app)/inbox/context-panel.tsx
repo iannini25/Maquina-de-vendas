@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/components/ui/cn";
 import { Dropdown, DropdownItem } from "@/components/ui/misc";
 import { useToast } from "@/components/ui/toast";
-import { formatBRL } from "@/lib/format";
+import { formatBRLShort } from "@/lib/format";
 import { moveLeadStageAction } from "@/server/inbox/actions";
 import type { ActiveConversationDto, StageOptionDto } from "@/server/inbox/types";
 
@@ -54,7 +54,7 @@ export function ContextPanel({
         <ContextRow label="Estágio" value={conversation.stageName} />
         <ContextRow
           label="Valor"
-          value={conversation.valueCents != null ? formatBRL(conversation.valueCents) : "—"}
+          value={conversation.valueCents != null ? formatBRLShort(conversation.valueCents) : "—"}
         />
         <ContextRow label="Score" value={String(conversation.score)} accent last />
       </dl>

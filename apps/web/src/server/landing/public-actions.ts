@@ -50,10 +50,20 @@ export async function registerLandingCtaAction(
   });
   if (!landing) return { ok: false, error: "Página não encontrada" };
 
+  // variantId precisa pertencer a ESTA landing (integridade das métricas A/B).
+  let variantId: string | null = null;
+  if (parsed.data.variantId) {
+    const variant = await prisma.landingVariant.findFirst({
+      where: { id: parsed.data.variantId, landingPageId: landing.id },
+      select: { id: true },
+    });
+    variantId = variant?.id ?? null;
+  }
+
   await prisma.landingEvent.create({
     data: {
       landingPageId: parsed.data.landingPageId,
-      variantId: parsed.data.variantId,
+      variantId,
       type: parsed.data.type,
       visitorId: parsed.data.visitorId,
     },
@@ -170,10 +180,18 @@ export async function createLeadFromLandingAction(
     });
   }
 
+  // variantId validado contra a própria landing (integridade das métricas A/B)
+  const signupVariant = data.variantId
+    ? await prisma.landingVariant.findFirst({
+        where: { id: data.variantId, landingPageId: landing.id },
+        select: { id: true },
+      })
+    : null;
+
   await prisma.landingEvent.create({
     data: {
       landingPageId: landing.id,
-      variantId: data.variantId,
+      variantId: signupVariant?.id ?? null,
       type: "SIGNUP",
       visitorId: data.visitorId,
       leadId: lead.id,

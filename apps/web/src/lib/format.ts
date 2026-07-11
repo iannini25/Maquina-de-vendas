@@ -1,5 +1,14 @@
 export { formatBRL } from "@vendaflow/core";
 
+/** "R$ 1.997" — sem centavos, como o protótipo exibe valores de lead/oferta. */
+export function formatBRLShort(cents: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0,
+  }).format(Math.round(cents / 100));
+}
+
 /** "há 12 min", "há 3 h", "há 2 dias", "agora" */
 export function timeAgo(date: Date | string | null | undefined): string {
   if (!date) return "—";

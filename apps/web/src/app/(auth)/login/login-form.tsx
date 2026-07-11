@@ -30,7 +30,13 @@ function LoginFormInner() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      // Fallback pré-hidratação NUNCA pode ser GET (credenciais iriam à URL/logs)
+      method="post"
+      className="space-y-4"
+      noValidate
+    >
       <AuthInput
         id="email"
         name="email"

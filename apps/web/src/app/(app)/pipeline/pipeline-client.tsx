@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/components/ui/cn";
 import { Chip, EmptyState, ProgressBar } from "@/components/ui/misc";
 import { useToast } from "@/components/ui/toast";
-import { formatBRL, timeAgo } from "@/lib/format";
+import { formatBRLShort, timeAgo } from "@/lib/format";
 import { useSse } from "@/lib/use-sse";
 import { moveLeadStage } from "@/server/pipeline/actions";
 import type {
@@ -312,7 +312,7 @@ export function PipelineClient({
                     </button>
                   </div>
                   <p className="mt-1.5 text-[11.5px] text-ink-3">
-                    Em jogo · <span className="tnum">{formatBRL(totalCents)}</span>
+                    Em jogo · <span className="tnum">{formatBRLShort(totalCents)}</span>
                   </p>
                   <button
                     type="button"
@@ -378,7 +378,7 @@ export function PipelineClient({
                       <ProgressBar value={lead.score} className="mt-2.5" />
                       <div className="mt-2.5 flex items-center justify-between">
                         <span className="tnum text-[13px] font-bold text-ink">
-                          {lead.valueCents !== null ? formatBRL(lead.valueCents) : "—"}
+                          {lead.valueCents !== null ? formatBRLShort(lead.valueCents) : "—"}
                         </span>
                         <span className="text-[11px] text-ink-3">
                           {timeAgo(lead.lastInteractionAt)}

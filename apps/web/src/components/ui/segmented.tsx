@@ -51,7 +51,7 @@ export function Segmented<T extends string>({
     >
       <span
         aria-hidden
-        className="absolute top-1 bottom-1 rounded-full bg-surface-3 border border-brand-3/30 transition-all duration-200 ease-[var(--ease-out)]"
+        className="absolute top-1 bottom-1 rounded-full border border-brand-3/50 bg-[linear-gradient(135deg,rgba(124,58,237,.45),rgba(168,85,247,.45))] shadow-[0_0_12px_-2px_rgba(139,92,246,.5)] transition-all duration-200 ease-[var(--ease-out)]"
         style={{ left: indicator.left, width: indicator.width }}
       />
       {options.map((option) => (

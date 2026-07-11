@@ -13,7 +13,7 @@ import { Modal } from "@/components/ui/modal";
 import { SlideOver } from "@/components/ui/slide-over";
 import { Tabs } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/toast";
-import { formatBRL, timeAgo } from "@/lib/format";
+import { formatBRLShort, timeAgo } from "@/lib/format";
 import {
   addNote,
   deleteLead,
@@ -276,7 +276,7 @@ export function LeadDetail({
                   <InfoRow label="Estágio" value={detail.stageName} />
                   <InfoRow
                     label="Valor potencial"
-                    value={detail.valueCents !== null ? formatBRL(detail.valueCents) : "—"}
+                    value={detail.valueCents !== null ? formatBRLShort(detail.valueCents) : "—"}
                   />
                 </div>
 

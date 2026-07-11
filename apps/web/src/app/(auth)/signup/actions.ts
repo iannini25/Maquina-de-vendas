@@ -2,9 +2,11 @@
 
 import { prisma } from "@vendaflow/db";
 import bcrypt from "bcryptjs";
+import { headers } from "next/headers";
 import { z } from "zod";
 
 import { signIn } from "@/lib/auth";
+import { rateLimit } from "@/lib/rate-limit";
 
 const signupSchema = z.object({
   name: z.string().min(2, "Informe seu nome"),
@@ -44,6 +46,17 @@ export async function signup(_prev: SignupResult | null, formData: FormData): Pr
       if (typeof key === "string" && !fieldErrors[key]) fieldErrors[key] = issue.message;
     }
     return { ok: false, fieldErrors };
+  }
+
+  // Anti criação de contas em massa: 5 signups por IP a cada 10 minutos.
+  const headerList = await headers();
+  const ip =
+    headerList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    headerList.get("x-real-ip") ||
+    "unknown";
+  const limit = await rateLimit(`signup:ip:${ip}`, 5, 600);
+  if (!limit.allowed) {
+    return { ok: false, error: "Muitas contas criadas — aguarde alguns minutos." };
   }
 
   const { name, workspaceName, email, password } = parsed.data;
