@@ -1,0 +1,28 @@
+# Caddy — proxy reverso com TLS automático (Let's Encrypt).
+# Domínios vêm do .env do compose: APP_DOMAIN, LANDING_DOMAIN, EVOLUTION_DOMAIN (opcional).
+
+{$APP_DOMAIN} {
+	encode zstd gzip
+
+	# SSE sem buffering
+	@sse path /api/sse*
+	handle @sse {
+		reverse_proxy web:3000 {
+			flush_interval -1
+		}
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
+}
+
+{$LANDING_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy web:3000
+}
+
+# Evolution exposta apenas se EVOLUTION_DOMAIN for definido (pareamento remoto do QR).
+{$EVOLUTION_DOMAIN:invalid.localhost} {
+	reverse_proxy evolution:8080
+}
