@@ -44,7 +44,7 @@ async function resolveEvolutionSender(
   const data = decryptCredentialData(credential.dataEncrypted);
   const apiKey = data.apiKey ?? options.evolutionGlobalKey;
   const instanceName = data.instanceName;
-  const baseUrl = data.baseUrl ?? options.evolutionUrl;
+  const baseUrl = data.url ?? data.baseUrl ?? options.evolutionUrl;
 
   if (!apiKey) {
     throw new Error(

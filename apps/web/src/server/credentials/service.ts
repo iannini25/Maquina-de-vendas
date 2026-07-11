@@ -7,7 +7,7 @@ import {
 } from "@vendaflow/db";
 
 import { PROVIDER_SPECS, providerSpec, REQUIRED_PROVIDERS } from "./providers";
-import { verifyCredentialData, type VerifyResult } from "./verify";
+import { evolutionConfig, verifyCredentialData, type VerifyResult } from "./verify";
 
 /**
  * Serviço de credenciais por workspace: salvar (criptografado), verificar
@@ -93,6 +93,15 @@ export async function saveAndVerifyCredential(
   }
 
   const result = await verifyCredentialData(provider, merged, workspaceSlug);
+
+  // EVOLUTION: persiste a config resolvida (url/instância default) para que
+  // worker e webhooks leiam sempre valores completos.
+  if (provider === "EVOLUTION" && result.ok) {
+    const resolved = evolutionConfig(merged, workspaceSlug);
+    merged.url = resolved.url;
+    merged.instanceName = resolved.instanceName;
+    if (resolved.apiKey) merged.apiKey = resolved.apiKey;
+  }
 
   await prisma.credential.upsert({
     where: { workspaceId_provider: { workspaceId, provider } },
