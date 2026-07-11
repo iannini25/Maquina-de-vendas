@@ -1,0 +1,26 @@
+{
+  "name": "vendaflow",
+  "private": true,
+  "packageManager": "pnpm@10.26.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "verify": "turbo run typecheck lint test build && node scripts/check-secrets.mjs",
+    "setup": "docker compose -f infra/docker-compose.dev.yml up -d && pnpm db:migrate && pnpm db:seed",
+    "db:migrate": "pnpm --filter @vendaflow/db migrate:dev",
+    "db:deploy": "pnpm --filter @vendaflow/db migrate:deploy",
+    "db:seed": "pnpm --filter @vendaflow/db seed",
+    "db:studio": "pnpm --filter @vendaflow/db studio",
+    "gen:keys": "node scripts/gen-keys.mjs",
+    "e2e": "pnpm --filter @vendaflow/web e2e"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0"
+  }
+}

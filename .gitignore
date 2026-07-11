@@ -1,0 +1,46 @@
+# deps
+node_modules/
+.pnpm-store/
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# builds
+.next/
+dist/
+build/
+out/
+.turbo/
+*.tsbuildinfo
+coverage/
+
+# prisma
+packages/db/prisma/*.db
+
+# playwright
+playwright-report/
+test-results/
+blob-report/
+
+# docker volumes / data
+infra/data/
+backups/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# local reference material (not product code)
+_ref/
+_archive/
+vendor/
+fonts-woff2/
+"maquina de vendas.zip"
+maquina de vendas.zip
+.thumbnail
+
+# scratch
+.scratch/
