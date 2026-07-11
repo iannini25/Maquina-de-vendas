@@ -44,3 +44,6 @@ maquina de vendas.zip
 
 # scratch
 .scratch/
+
+# playwright auth state
+apps/web/e2e/.auth/
