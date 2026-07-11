@@ -83,6 +83,6 @@ describe("computeForecast", () => {
 
 describe("formatBRL", () => {
   it("formata centavos em BRL", () => {
-    expect(formatBRL(199_700).replace(/ /g, " ")).toBe("R$ 1.997,00");
+    expect(formatBRL(199_700).replace(/\u00a0/g, " ")).toBe("R$ 1.997,00");
   });
 });

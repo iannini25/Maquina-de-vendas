@@ -24,6 +24,7 @@
   "devDependencies": {
     "@vendaflow/eslint-config": "workspace:*",
     "typescript": "^5.9.0",
-    "vitest": "^3.2.0"
+    "vitest": "^3.2.0",
+    "eslint": "^9.30.0"
   }
 }

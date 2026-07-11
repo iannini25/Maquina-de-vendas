@@ -16,7 +16,7 @@ beforeAll(() => {
 
 describe("criptografia de credenciais (AES-256-GCM)", () => {
   it("roundtrip de segredo", () => {
-    const secret = "sk-ant-teste-nao-real-1234567890";
+    const secret = "chave-de-teste-nao-real-1234567890";
     const encrypted = encryptSecret(secret);
     expect(encrypted).not.toContain(secret);
     expect(decryptSecret(encrypted)).toBe(secret);

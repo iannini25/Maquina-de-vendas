@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // standalone só no build de produção (Docker/Linux): symlinks do tracing
+  // falham no Windows sem Developer Mode.
+  output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
   transpilePackages: ["@vendaflow/core", "@vendaflow/db"],
   experimental: {
     serverActions: {

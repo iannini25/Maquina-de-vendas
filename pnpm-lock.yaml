@@ -66,6 +66,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       eslint-config-next:
         specifier: ^15.4.0
         version: 15.5.20(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
@@ -97,8 +100,8 @@ importers:
         specifier: ^5.56.0
         version: 5.80.1
       ioredis:
-        specifier: ^5.6.0
-        version: 5.11.1
+        specifier: 5.10.1
+        version: 5.10.1
       pino:
         specifier: ^9.7.0
         version: 9.14.0
@@ -112,6 +115,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       tsx:
         specifier: ^4.20.0
         version: 4.23.0
@@ -134,6 +140,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
@@ -153,6 +162,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
@@ -169,6 +181,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
@@ -194,6 +209,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       prisma:
         specifier: ^6.16.0
         version: 6.19.3(typescript@5.9.3)
@@ -219,6 +237,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
@@ -250,6 +271,9 @@ importers:
       '@vendaflow/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      eslint:
+        specifier: ^9.30.0
+        version: 9.39.5(jiti@2.7.0)
       typescript:
         specifier: ^5.9.0
         version: 5.9.3

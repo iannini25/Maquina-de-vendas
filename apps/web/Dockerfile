@@ -16,7 +16,7 @@ RUN pnpm --filter @vendaflow/db generate \
   && pnpm --filter @vendaflow/core build \
   && pnpm --filter @vendaflow/db build \
   && pnpm --filter "@vendaflow/web^..." build \
-  && cd apps/web && pnpm build
+  && cd apps/web && BUILD_STANDALONE=1 pnpm build
 
 # ── Runtime ──────────────────────────────────────────────────────────────
 FROM node:22-alpine AS runner
