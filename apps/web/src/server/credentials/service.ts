@@ -6,8 +6,39 @@ import {
   prisma,
 } from "@vendaflow/db";
 
+import { randomBytes } from "node:crypto";
+
 import { PROVIDER_SPECS, providerSpec, REQUIRED_PROVIDERS } from "./providers";
-import { evolutionConfig, verifyCredentialData, type VerifyResult } from "./verify";
+import {
+  configureEvolutionWebhook,
+  evolutionConfig,
+  verifyCredentialData,
+  type VerifyResult,
+} from "./verify";
+
+/** Garante o WebhookEndpoint (URL + secret) do provedor para este workspace. */
+export async function ensureWebhookEndpoint(
+  workspaceId: string,
+  provider: string,
+): Promise<{ url: string; secret: string }> {
+  const existing = await prisma.webhookEndpoint.findUnique({
+    where: { workspaceId_provider: { workspaceId, provider } },
+  });
+  if (existing) return { url: existing.url, secret: existing.secret };
+
+  const secret = randomBytes(20).toString("hex");
+  const base = process.env.APP_URL ?? "http://localhost:3000";
+  const path =
+    provider === "EVOLUTION"
+      ? `/api/webhooks/evolution/${workspaceId}?secret=${secret}`
+      : `/api/webhooks/checkout/${provider.toLowerCase()}/${workspaceId}`;
+  const url = `${base}${path}`;
+
+  await prisma.webhookEndpoint.create({
+    data: { workspaceId, provider, secret, url },
+  });
+  return { url, secret };
+}
 
 /**
  * Serviço de credenciais por workspace: salvar (criptografado), verificar
@@ -95,12 +126,19 @@ export async function saveAndVerifyCredential(
   const result = await verifyCredentialData(provider, merged, workspaceSlug);
 
   // EVOLUTION: persiste a config resolvida (url/instância default) para que
-  // worker e webhooks leiam sempre valores completos.
+  // worker e webhooks leiam sempre valores completos, e registra o webhook
+  // de entrada na instância.
   if (provider === "EVOLUTION" && result.ok) {
     const resolved = evolutionConfig(merged, workspaceSlug);
     merged.url = resolved.url;
     merged.instanceName = resolved.instanceName;
     if (resolved.apiKey) merged.apiKey = resolved.apiKey;
+
+    const endpoint = await ensureWebhookEndpoint(workspaceId, "EVOLUTION");
+    const webhook = await configureEvolutionWebhook(merged, workspaceSlug, endpoint.url);
+    if (!webhook.ok) {
+      result.meta = { ...result.meta, webhookWarning: webhook.error };
+    }
   }
 
   await prisma.credential.upsert({

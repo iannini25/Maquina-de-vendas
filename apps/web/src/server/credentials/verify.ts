@@ -150,6 +150,39 @@ async function verifyEvolution(
   }
 }
 
+/**
+ * Configura o webhook messages.upsert da instância Evolution apontando para o
+ * nosso endpoint por workspace. Chamado após verificação OK da credencial.
+ */
+export async function configureEvolutionWebhook(
+  data: Record<string, string>,
+  workspaceSlug: string,
+  webhookUrl: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const config = evolutionConfig(data, workspaceSlug);
+  try {
+    const response = await safeFetch(`${config.url}/webhook/set/${config.instanceName}`, {
+      method: "POST",
+      headers: { apikey: config.apiKey, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        webhook: {
+          enabled: true,
+          url: webhookUrl,
+          webhookByEvents: false,
+          webhookBase64: false,
+          events: ["MESSAGES_UPSERT"],
+        },
+      }),
+    });
+    if (!response.ok) {
+      return { ok: false, error: `Falha ao configurar webhook (${response.status})` };
+    }
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, error: describeNetworkError(error) };
+  }
+}
+
 async function verifyResend(data: Record<string, string>): Promise<VerifyResult> {
   if (!data.apiKey) return { ok: false, error: "Informe a API Key" };
   try {
