@@ -19,6 +19,7 @@
     "bullmq": "^5.56.0",
     "ioredis": "5.10.1",
     "pino": "^9.7.0",
+    "unpdf": "^1.0.0",
     "zod": "^3.25.0",
     "@vendaflow/brain": "workspace:*",
     "@vendaflow/automation": "workspace:*"

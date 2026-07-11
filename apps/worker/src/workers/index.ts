@@ -5,6 +5,7 @@ import type { WorkerEnv } from "../env.js";
 import type { RedisPublisher } from "../redis.js";
 import type { JobLike, JobProcessor, Log } from "../types.js";
 import { createAgentReplyProcessor } from "./agent-reply.js";
+import { createAgentReplyDeps, createAgentReplyQueuePorts } from "./agent-reply.wiring.js";
 import { createAnalystProcessor } from "./analyst.js";
 import { createAutomationProcessor } from "./automation.js";
 import { createCampaignProcessor } from "./campaign.js";
@@ -56,7 +57,17 @@ function buildProcessors(ctx: WorkerContext): Record<QueueName, JobProcessor> {
       }),
     ),
     [QUEUES.automation]: createAutomationProcessor({ log }),
-    [QUEUES.agentReply]: createAgentReplyProcessor({ log }),
+    [QUEUES.agentReply]: createAgentReplyProcessor(
+      createAgentReplyDeps({
+        queues: createAgentReplyQueuePorts(ctx.connection),
+        publisher: ctx.publisher,
+        appUrl: ctx.env.APP_URL,
+        landingUrl: process.env.LANDING_URL,
+        s3Endpoint: ctx.env.S3_ENDPOINT,
+        s3Bucket: ctx.env.S3_BUCKET,
+        log,
+      }),
+    ),
     [QUEUES.contextIngest]: createContextIngestProcessor({ log }),
     [QUEUES.postSale]: createPostSaleProcessor({ log }),
     [QUEUES.campaign]: createCampaignProcessor({ log }),
