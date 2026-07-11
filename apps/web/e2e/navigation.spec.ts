@@ -35,9 +35,14 @@ for (const screen of SCREENS) {
 
 test("busca global ⌘K encontra lead do seed", async ({ page }) => {
   await page.goto("/dashboard", { waitUntil: "domcontentloaded" });
-  await page.keyboard.press("Control+k");
+
+  // Repete o atalho até a palette abrir (hidratação em dev demora)
   const input = page.getByPlaceholder(/buscar leads, campanhas/i);
-  await expect(input).toBeVisible();
+  await expect(async () => {
+    await page.keyboard.press("Control+k");
+    await expect(input).toBeVisible({ timeout: 1_000 });
+  }).toPass({ timeout: 20_000 });
+
   await input.fill("Marcos");
   await expect(page.getByText("Marcos Tavares").first()).toBeVisible({ timeout: 10_000 });
 });
