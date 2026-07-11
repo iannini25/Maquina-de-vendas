@@ -32,9 +32,10 @@ export default defineConfig({
       dependencies: ["setup"],
     },
     {
+      // Pixel 5 = chromium (evita depender do WebKit instalado no Windows)
       name: "mobile",
       use: {
-        ...devices["iPhone 13"],
+        ...devices["Pixel 5"],
         storageState: "e2e/.auth/user.json",
       },
       dependencies: ["setup"],
