@@ -21,21 +21,66 @@
 - [ ] Inventário UI (agente rodando) → docs/UI-INVENTORY.md
 
 ## Fase 1 — Inventário e porte da UI
-- [ ] Servir protótipo + Playwright → docs/UI-INVENTORY.md
-- [ ] Portar todas as telas com mocks tipados
+- [x] docs/UI-INVENTORY.md completo (18 telas, 24 abas, 9 modais, 101 screenshots)
+- [x] Kit de componentes do design system (apps/web/src/components/ui/*)
+- [x] Shell fiel (sidebar 4 grupos + card usuário + PageHeader contextual)
+- [x] Onda 1 portada com dados reais: Dashboard, Pipeline (drag FLIP + efeitos), Leads,
+      Inbox (SSE + assumir/devolver), Campanhas (+detalhe 5 abas), Pós-venda,
+      Landing Pages (editor blocos + variantes + /p/[slug] público), Anúncios
+- [ ] Onda 2 em andamento: Prospecção, Templates E-mail, Contexto, SDR, Finanças,
+      Criar com IA, Setup Gate UI, Configurações, restyle Login/Signup
 
 ## Fase 2 — Setup Gate + Credenciais
+- [x] Backend completo: criptografia, verificadores reais (Anthropic/Voyage/Evolution
+      c/ QR/Resend c/ DNS/S3 RW/DNS domínio), computeSetupStatus, releaseSystem
+- [x] Registro automático do webhook Evolution na instância ao verificar credencial
+- [ ] UI do /setup e /configuracoes (agente da onda 2)
+
 ## Fase 3 — CRM vivo
+- [x] Pipeline drag real + moveLeadStage (computeStageChange + efeitos WON) + toast
+- [x] Novo lead + import CSV + espelho Leads + lead-detail slide-over + EventLog + SSE
+
 ## Fase 4 — Mensageria + Agente
+- [x] Webhook Evolution inbound (dedupe, lead/conversa, SSE, aciona agente)
+- [x] agent-reply completo no worker: loop de ferramentas + enforcement + classifier
+      + RAG + opt-out PARAR + handoff keywords + typing delay + rate limit
+- [x] RAG: ingestão (PDF via unpdf, chunking, embeddings Voyage, pgvector) + fallback full-text
+- [x] Inbox UI com envio real (fila outbound), sugestão da IA, nova conversa
+
 ## Fase 5 — Automação
+- [x] Motor de runs no worker (advance/expand, sleep_until, branch por resposta)
+- [x] ensureStageAutomation (flow default da cadência do playbook)
+- [x] Aprovações (DRAFT/SEMI → Approval) + pausa por handoff/opt-out
+- [ ] Telas do SDR ligadas (onda 2)
+
 ## Fase 6 — Aquisição
+- [x] Landing builder + variantes A/B + página pública + eventos + captura
+- [x] Campanhas (incl. Lançamento/Live com lembretes agendados no worker)
+- [x] Anúncios (gerador Grande Ideia + swipe vault + biblioteca)
+- [ ] Criar com IA studio (onda 2)
+
 ## Fase 7 — Venda → Pós-venda
-## Fase 8 — Finanças + Prospecção
+- [x] Ganho → Order → AccessGrant → /a/[token] + heartbeat + beacon.js
+- [x] Worker: classificação diária NEVER/IDLE/ACTIVE + nudges + NPS + upsell c/ janela
+- [ ] Templates de E-mail UI + opt-out (onda 2)
+
+## Fase 8 — Finanças + Prospecção — (onda 2 em andamento)
 ## Fase 9 — Deploy-ready
+- [x] compose.prod + Caddyfile + Dockerfiles + setup-vps.sh + backup.sh
+- [x] docs/DEPLOY.md + docs/RUNBOOK.md + docs/API.md
+- [ ] README final + smoke test do compose.prod local
+
 ## Fase 10 — Revisão geral
+- [x] Teste de vazamento multi-tenant (9 cenários verdes)
+- [x] Scaffolding Playwright E2E (config + auth setup)
+- [ ] Suíte E2E completa (10 fluxos da spec) + fidelidade visual + botão-a-botão
 
 ## Pendências que só validam com chave real
-- (nenhuma ainda)
+- Resposta real do agente no WhatsApp (precisa ANTHROPIC + Evolution pareada)
+- Embeddings Voyage (sem chave usa fallback full-text — funcional)
+- Envio real de e-mail via Resend (dev usa Mailpit)
+- Busca Explorium/Vibe (sem chave mostra estado honesto)
+- Geração de criativos Higgsfield (CTA de configurar)
 
 ## Notas de retomada
 - Ambiente: Windows 11, node 22.18, pnpm 10.26.2, docker 29.1.3, git 2.52.
