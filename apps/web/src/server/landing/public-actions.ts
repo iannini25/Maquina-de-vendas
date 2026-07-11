@@ -198,3 +198,22 @@ export async function createLeadFromLandingAction(
     whatsappLink: number ? `https://wa.me/${number}?text=${message}` : null,
   };
 }
+
+/**
+ * Variante FormData da captura (progressive enhancement): o <form action>
+ * funciona antes da hidratação e até sem JavaScript.
+ */
+export async function createLeadFromLandingFormAction(
+  _prev: SignupResult | null,
+  formData: FormData,
+): Promise<SignupResult> {
+  return createLeadFromLandingAction({
+    landingPageId: String(formData.get("landingPageId") ?? ""),
+    variantId: (formData.get("variantId") as string) || null,
+    visitorId: String(formData.get("visitorId") ?? ""),
+    name: String(formData.get("name") ?? ""),
+    whatsapp: String(formData.get("whatsapp") ?? ""),
+    email: (formData.get("email") as string) || undefined,
+    utmCampaign: (formData.get("utmCampaign") as string) || undefined,
+  });
+}

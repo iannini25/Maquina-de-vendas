@@ -36,3 +36,23 @@ test("landing inexistente responde 404", async ({ page }) => {
   const response = await page.goto("/p/nao-existe-xyz", { waitUntil: "domcontentloaded" });
   expect(response?.status()).toBe(404);
 });
+
+test("form de captura cria lead no CRM", async ({ page, isMobile }) => {
+  test.skip(isMobile, "variante mobile do seed não tem form de captura");
+
+  const name = `Captura E2E ${Date.now()}`;
+  await page.goto("/p/ia-na-lideranca", { waitUntil: "domcontentloaded" });
+
+  await page.getByPlaceholder(/seu nome/i).fill(name);
+  await page.getByPlaceholder(/whatsapp/i).fill(`5511${String(Date.now()).slice(-9)}`);
+  await page.getByRole("button", { name: /quero me inscrever|inscrever|garantir/i }).click();
+
+  // Página de obrigado / confirmação
+  await expect(
+    page.getByText(/obrigado|recebemos|te chama|whatsapp/i).first(),
+  ).toBeVisible({ timeout: 15_000 });
+
+  // Lead aparece no espelho (sessão autenticada)
+  await page.goto("/leads", { waitUntil: "domcontentloaded" });
+  await expect(page.getByText(name).first()).toBeVisible({ timeout: 15_000 });
+});

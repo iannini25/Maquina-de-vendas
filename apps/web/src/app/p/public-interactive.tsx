@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 import {
-  createLeadFromLandingAction,
+  createLeadFromLandingFormAction,
   registerLandingCtaAction,
+  type SignupResult,
 } from "@/server/landing/public-actions";
 
 import type { LandingCtaContext } from "./landing-render";
@@ -91,33 +92,14 @@ export function LandingSignupForm({
   fields: Array<"nome" | "whatsapp" | "email">;
   ctx: LandingCtaContext;
 }) {
-  const [name, setName] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [email, setEmail] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState<{ whatsappLink: string | null } | null>(null);
-
-  const submit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setSubmitting(true);
-    setError(null);
-    const result = await createLeadFromLandingAction({
-      landingPageId: ctx.landingPageId,
-      variantId: ctx.variantId,
-      visitorId: ctx.visitorId,
-      name,
-      whatsapp,
-      email: email || undefined,
-      utmCampaign: ctx.utmCampaign ?? undefined,
-    });
-    setSubmitting(false);
-    if (!result.ok) {
-      setError(result.error ?? "Não foi possível enviar. Tente de novo.");
-      return;
-    }
-    setDone({ whatsappLink: result.whatsappLink ?? null });
-  };
+  // useActionState + <form action>: o envio funciona antes da hidratação
+  // (e sem JS) — nada de inscrição perdida em conexão lenta.
+  const [state, formAction, submitting] = useActionState<SignupResult | null, FormData>(
+    createLeadFromLandingFormAction,
+    null,
+  );
+  const error = state && !state.ok ? (state.error ?? "Não foi possível enviar. Tente de novo.") : null;
+  const done = state?.ok ? { whatsappLink: state.whatsappLink ?? null } : null;
 
   if (done) {
     return (
@@ -150,36 +132,37 @@ export function LandingSignupForm({
       <h2 className="font-display text-center text-xl font-semibold tracking-tight text-ink">
         Garanta sua vaga
       </h2>
-      <form onSubmit={(event) => void submit(event)} className="mx-auto mt-5 flex max-w-sm flex-col gap-3">
+      <form action={formAction} className="mx-auto mt-5 flex max-w-sm flex-col gap-3">
+        <input type="hidden" name="landingPageId" value={ctx.landingPageId} />
+        <input type="hidden" name="variantId" value={ctx.variantId ?? ""} />
+        <input type="hidden" name="visitorId" value={ctx.visitorId} />
+        <input type="hidden" name="utmCampaign" value={ctx.utmCampaign ?? ""} />
         {fields.includes("nome") && (
           <input
             className={inputClass}
+            name="name"
             placeholder="Seu nome"
             aria-label="Seu nome"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
             required
           />
         )}
         {fields.includes("whatsapp") && (
           <input
             className={inputClass}
+            name="whatsapp"
             placeholder="WhatsApp (DDD + número)"
             aria-label="Seu WhatsApp"
             inputMode="tel"
-            value={whatsapp}
-            onChange={(event) => setWhatsapp(event.target.value)}
             required
           />
         )}
         {fields.includes("email") && (
           <input
             className={inputClass}
+            name="email"
             placeholder="Seu melhor e-mail (opcional)"
             aria-label="Seu e-mail"
             type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
         )}
         {error && (
