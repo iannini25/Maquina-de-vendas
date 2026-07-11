@@ -3,6 +3,23 @@
 CRM multi-tenant com SDR de IA operando 24/7 no WhatsApp: atenção → lead → conversa →
 venda → relacionamento. Self-hosted (Docker) numa VPS.
 
+**O que funciona de ponta a ponta:**
+
+- **Pipeline = painel de controle da IA** — cada estágio tem playbook (objetivo, ações
+  liberadas, critérios, cadência, autonomia); arrastar um lead muda o comportamento do
+  SDR na hora (toast confirma o efeito)
+- **SDR de IA no WhatsApp** — responde via Evolution API com RAG (pgvector + fallback
+  full-text), guardrails com enforcement no código, opt-out "PARAR", handoff por
+  palavra-gatilho, aprovações para ações sensíveis
+- **Funil completo** — landing pages A/B por dispositivo (`/p/slug`) → captura → conversa
+  → venda (pipeline "Ganho" ou webhooks Hotmart/Kiwify/Eduzz/Stripe) → acesso rastreado
+  (`/a/token` + heartbeat) → pós-venda (nudge/NPS/upsell) → reativação
+- **Setup Gate** — cada workspace pluga as próprias chaves; verificação real de cada
+  credencial (QR do WhatsApp, tabela DNS do Resend, teste RW do S3); segredos
+  criptografados com AES-256-GCM
+- **ROI & Finanças** — despesas, vendas (manual + pipeline + webhooks assinados),
+  KPIs (ROI/ROAS/CAC/ticket) e previsão (tendência 30d + pipeline ponderado)
+
 ## Stack
 
 - **Monorepo**: pnpm + Turborepo, TypeScript estrito
@@ -30,9 +47,12 @@ Login demo (com `SEED_DEMO=true`): `demo@vendaflow.local` / `demo1234`.
 ## Qualidade
 
 ```bash
-pnpm verify   # typecheck + lint + unit + build + check de segredos
-pnpm e2e      # Playwright contra o app rodando
+pnpm verify   # typecheck + lint + unit + build + check de segredos (36 tasks)
+pnpm e2e      # Playwright contra o app rodando (47 testes, 10 fluxos da spec)
 ```
+
+Estado atual: 433 testes unitários + 47 E2E verdes, incluindo teste de vazamento
+multi-tenant (9 cenários) e verificação de assinatura dos 4 webhooks de checkout.
 
 ## Deploy
 

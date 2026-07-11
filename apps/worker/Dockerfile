@@ -19,8 +19,9 @@ RUN pnpm install --frozen-lockfile --filter @vendaflow/worker...
 # Compila as dependências de workspace e o worker (inclui prisma generate no @vendaflow/db).
 RUN pnpm --filter @vendaflow/worker... run build
 
-# Remove devDependencies mantendo os artefatos compilados.
-RUN pnpm prune --prod
+# Nota: sem `pnpm prune --prod` — falha com install filtrado de workspace e
+# removeria o Prisma Client gerado em node_modules. Custo: imagem um pouco
+# maior (devDeps), aceitável para self-host.
 
 # ── Estágio 2: runtime ──────────────────────────────────────────────────────
 FROM node:22-alpine AS runtime
