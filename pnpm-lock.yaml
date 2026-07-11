@@ -99,6 +99,12 @@ importers:
 
   apps/worker:
     dependencies:
+      '@vendaflow/automation':
+        specifier: workspace:*
+        version: link:../../packages/automation
+      '@vendaflow/brain':
+        specifier: workspace:*
+        version: link:../../packages/brain
       '@vendaflow/core':
         specifier: workspace:*
         version: link:../../packages/core
