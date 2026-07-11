@@ -1,5 +1,6 @@
 import { prisma } from "@vendaflow/db";
 
+import { GlobalOverlays } from "@/components/shell/global-overlays";
 import { Sidebar } from "@/components/shell/sidebar";
 import { ToastProvider } from "@/components/ui/toast";
 import { requireWorkspace } from "@/lib/session";
@@ -24,6 +25,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         />
         <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">{children}</main>
       </div>
+      <GlobalOverlays />
     </ToastProvider>
   );
 }
