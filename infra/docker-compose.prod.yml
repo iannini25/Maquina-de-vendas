@@ -10,7 +10,8 @@ services:
     environment:
       APP_DOMAIN: ${APP_DOMAIN}
       LANDING_DOMAIN: ${LANDING_DOMAIN}
-      EVOLUTION_DOMAIN: ${EVOLUTION_DOMAIN:-}
+      # default real: var vazia chega como "" no Caddy e quebraria o site block
+      EVOLUTION_DOMAIN: ${EVOLUTION_DOMAIN:-evolution.invalid.localhost}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
@@ -40,7 +41,8 @@ services:
       minio:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      # 127.0.0.1 explícito: "localhost" resolve ::1 no Alpine e o Next escuta IPv4
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
       interval: 15s
       timeout: 5s
       retries: 10
@@ -66,7 +68,7 @@ services:
       redis:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3001/health"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3001/health"]
       interval: 15s
       timeout: 5s
       retries: 10

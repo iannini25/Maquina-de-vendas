@@ -22,7 +22,8 @@
 	reverse_proxy web:3000
 }
 
-# Evolution exposta apenas se EVOLUTION_DOMAIN for definido (pareamento remoto do QR).
-{$EVOLUTION_DOMAIN:invalid.localhost} {
+# Evolution exposta apenas se EVOLUTION_DOMAIN for definido (pareamento remoto
+# do QR); sem definir, o default aponta para um host inválido e nada é exposto.
+{$EVOLUTION_DOMAIN} {
 	reverse_proxy evolution:8080
 }
