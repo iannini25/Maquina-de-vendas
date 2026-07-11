@@ -8,14 +8,17 @@
 - [x] Protótipo movido para docs/prototype/
 - [x] .gitignore (sem segredos, sem _ref/vendor/fonts brutos)
 - [x] Monorepo pnpm + turbo (package.json, pnpm-workspace.yaml, turbo.json)
-- [ ] Push inicial (validar credenciais git)
-- [ ] docker-compose.dev.yml (postgres+pgvector, redis, minio, evolution, mailpit)
-- [ ] packages/db — Prisma schema completo + primeira migration
-- [ ] Auth.js v5 (credentials + bcrypt) + helper multi-tenant
-- [ ] Tokens do design system no Tailwind v4
-- [ ] Shell (sidebar/topbar) portado do protótipo
-- [ ] scripts/gen-keys.mjs + scripts/check-secrets.mjs
-- [ ] pnpm verify verde
+- [x] Push inicial (credenciais git OK)
+- [x] docker-compose.dev.yml (postgres+pgvector:5434, redis:6381, minio:9000, evolution:8081, mailpit:8025 — portas remapeadas por conflito com outros projetos da máquina)
+- [x] packages/db — Prisma schema completo + migration init + tenantDb (regra de ouro) + crypto AES-GCM + testes
+- [x] packages/core — máquina de estados, cadência, ROI/previsão, markdown configs, variantes de landing, filas/canais (42 testes verdes)
+- [x] Auth.js v5 (credentials + bcrypt, split edge-safe p/ middleware) + requireWorkspace/tenantDb
+- [x] Tokens do design system no Tailwind v4 (globals.css @theme)
+- [x] Shell inicial (sidebar/topbar) — refinar na Fase 1 com o inventário
+- [x] Seed demo completo (workspace Liderança IA, 10 leads c/ conversas, campanhas, landing 2 variantes, despesas, 2 vendas, 8 templates e-mail, contexto, prospecção)
+- [x] scripts/gen-keys.mjs + scripts/check-secrets.mjs
+- [ ] pnpm verify verde (aguarda pacotes paralelos: messaging/emails/automation/brain/worker)
+- [ ] Inventário UI (agente rodando) → docs/UI-INVENTORY.md
 
 ## Fase 1 — Inventário e porte da UI
 - [ ] Servir protótipo + Playwright → docs/UI-INVENTORY.md

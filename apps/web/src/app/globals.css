@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────
+   Design system VendaFlow — tokens do protótipo (fonte da verdade).
+   Fundo #08080B · superfícies 0D0D13/13131C/1A1A25 · roxo 7C3AED→A855F7→8B5CF6
+   Fontes: Space Grotesk (display/números) + Plus Jakarta Sans (UI).
+   ──────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Superfícies */
+  --color-bg: #08080b;
+  --color-surface-1: #0d0d13;
+  --color-surface-2: #13131c;
+  --color-surface-3: #1a1a25;
+
+  /* Hairlines */
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-soft: rgba(255, 255, 255, 0.05);
+
+  /* Texto */
+  --color-ink: #f4f4f7;
+  --color-ink-2: #a1a1aa;
+  --color-ink-3: #6b6b76;
+
+  /* Roxos */
+  --color-brand-1: #7c3aed;
+  --color-brand-2: #a855f7;
+  --color-brand-3: #8b5cf6;
+  --color-accent: #b388ff;
+  --color-brand-soft: rgba(139, 92, 246, 0.14);
+
+  /* Estados */
+  --color-hot: #fb7185;
+  --color-warm: #fbbf24;
+  --color-cold: #38bdf8;
+  --color-success: #34d399;
+  --color-whatsapp: #25d366;
+  --color-danger: #fb7185;
+
+  /* Tipografia */
+  --font-display: "Space Grotesk Variable", "Space Grotesk", ui-sans-serif, system-ui;
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Sombras / glow */
+  --shadow-glow: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 12px 40px -12px rgba(139, 92, 246, 0.45);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+
+  /* Radius */
+  --radius-card: 16px;
+  --radius-control: 10px;
+}
+
+:root {
+  color-scheme: dark;
+  /* Durações de movimento (tokens do protótipo) */
+  --dur-1: 130ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 440ms;
+  --stagger: 40ms;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Halos radiais roxos de fundo (2–3 pontos, como no protótipo) */
+.app-halos {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 400px at 15% -5%, rgba(124, 58, 237, 0.14), transparent 70%),
+    radial-gradient(700px 500px at 90% 10%, rgba(168, 85, 247, 0.08), transparent 70%),
+    radial-gradient(800px 600px at 50% 110%, rgba(139, 92, 246, 0.07), transparent 70%);
+}
+
+/* Números tabulares para KPIs (Space Grotesk) */
+.tnum {
+  font-family: var(--font-display);
+  font-feature-settings: "tnum" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbar discreta */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+    100deg,
+    var(--color-surface-2) 40%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s var(--ease-in-out) infinite;
+}
+
+/* Entrada padrão de elementos (fade + rise), respeitando reduced motion */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise-in {
+  animation: rise-in var(--dur-3) var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Foco visível consistente */
+:focus-visible {
+  outline: 2px solid var(--color-brand-3);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+}

@@ -1,0 +1,78 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+ROI & Finanças
+Quanto entra, quanto sai e se dá lucro
+Buscar leads, conversas, campanhas…
+⌘K
+Lançar
+Visão geral (ROI)
+Despesas
+Vendas
+Lançar venda
+TOTAL FATURADO
+R$ 9.985
+TICKET MÉDIO
+R$ 1.997
+CONECTAR CHECKOUT
+Hotmart · Kiwify · Stripe — vendas entram sozinhas.
+3 formas de registrar vendas: manual · automática (todo "Ganho" no Pipeline vira venda) · integração (checkout).
+DATA
+PRODUTO
+VALOR
+QTD
+ORIGEM
+19/06
+Curso IA na Liderança
+R$ 1.997
+1
+Pipeline (Ganho)
+17/06
+Curso IA na Liderança
+R$ 1.997
+1
+Checkout · Kiwify
+14/06
+Curso IA na Liderança
+R$ 1.997
+1
+Manual
+11/06
+Curso IA na Liderança
+R$ 3.994
+2
+Checkout · Kiwify
+Lançar venda
+✕
+Produto*
+Curso IA na Liderança · R$ 1.997
+Mentoria 1:1 · R$ 4.900
+Comunidade Anual · R$ 997
+Valor*
+Qtd
+Data*
+Canal / origem
+Pipeline (Ganho)
+Checkout · Kiwify
+Manual
+Cancelar
+Lançar

@@ -1,0 +1,43 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Prospecção Ativa
+Encha o topo do funil com controle humano
+Buscar leads, conversas, campanhas…
+⌘K
+Buscar leads
+Fontes
+Leads não contatados
+Listas
+Abordagens
+Disparos em massa exigem sua aprovação. Revise cada mensagem abaixo.
+A abordagem usa a mesma persona e contexto do SDR. Ao aprovar: o prospect vira lead, entra no Pipeline (origem Prospecção) e a IA continua a conversa a partir desta mensagem, no Inbox.
+MR
+Marina Rocha
+Head de RH · TechCorp · via Vibe
+vira lead, entra no Pipeline e a IA continua a conversa a partir desta mensagem
+PE
+Paulo Esteves
+Diretor de Operações · Construtora Alfa · via Vibe
+vira lead, entra no Pipeline e a IA continua a conversa a partir desta mensagem
+Aprovar selecionados
+Aprovar e enviar

@@ -1,0 +1,81 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Credenciais & Integrações
+Sair
+Configurações
+Suas chaves, segredos e domínio — o sistema se auto-configura
+Buscar leads, conversas, campanhas…
+⌘K
+Re-verificar tudo
+Credenciais & Integrações
+Uso & Custos das APIs
+Você usa suas próprias chaves — estes são os tokens, créditos e custos das APIs ativas neste ambiente, no mês atual.
+CUSTO ESTIMADO DO MÊS
+US$ 64,82
+API
+USO
+PREÇO
+CUSTO · MÊS
+Claude · Anthropic
+IA · geração
+1,24M / 3M tokens
+US$ 3,00 / 1M in · US$ 15,00 / 1M out
+US$ 18,40
+Ativo
+Voyage AI
+Embeddings · RAG
+820K / 2M tokens
+US$ 0,12 / 1M tokens
+US$ 0,10
+Ativo
+WhatsApp · Evolution
+Mensagens
+3.420 / 10.000 msgs
+US$ 0,005 / msg
+US$ 17,10
+Ativo
+Resend
+E-mail
+1.180 / 3.000 e-mails
+US$ 0,001 / e-mail
+US$ 1,18
+Ativo
+Vibe Prospecting
+Prospecção
+140 / 500 créditos
+US$ 0,20 / crédito
+US$ 28,00
+Ativo
+Higgsfield
+Criativos · imagem/vídeo
+0 / 200 créditos
+US$ 0,10 / crédito
+US$ 0,00
+Inativo
+Storage · R2
+Arquivos
+2,4 / 50 GB
+US$ 0,015 / GB·mês
+US$ 0,04
+Ativo
+Os preços são os das próprias APIs (pago direto ao provedor). O VendaFlow não cobra markup — é self-host.

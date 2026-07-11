@@ -1,0 +1,64 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+SDR de IA
+Configure seu vendedor de IA
+Buscar leads, conversas, campanhas…
+⌘K
+Salvar configuração
+Persona
+Modos do agente
+Playbooks por estágio
+Guardrails
+Cadências
+O agente pode ter até 3 modos de atuação (o "sentimento" e o jeito de conduzir a conversa). Configure cada modo aqui na plataforma OU anexe um arquivo markdown. Escolha qual modo fica ativo por padrão.
+Ativo
+Plataforma
+Markdown
+Definir como ativo
+Plataforma
+Markdown
+Definir como ativo
+Plataforma
+Markdown
+persona-modo.md
+2,4 KB
+Substituir
+Remover
+Definir como ativo
+Limite: máximo 3 arquivos markdown somando todos os modos.
+Como montar o arquivo markdown
+Copiar template
+Baixar .md
+O arquivo vira contexto/persona da IA (via RAG): o agente lê esse markdown para saber quem é, como fala e o que nunca pode fazer. Estrutura recomendada:
+# Persona do agente
+Você é {nome}, do time de {empresa}. Fala como {tom}.
+## Objetivo
+Vender {produto} com clareza, sem inventar nada.
+## Sentimento / como conduzir
+- Seja {empático/direto}. Mensagens curtas.
+- Faça 1 pergunta por vez. Use o nome da pessoa.
+## O que NUNCA fazer
+- Nunca prometer preço/prazo fora do contexto.
+## Objeções e respostas
+- "Tá caro" → {resposta}
+Template do Design System copiado.

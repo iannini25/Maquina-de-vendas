@@ -1,0 +1,156 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Credenciais & Integrações
+Sair
+Configurações
+Suas chaves, segredos e domínio — o sistema se auto-configura
+Buscar leads, conversas, campanhas…
+⌘K
+Re-verificar tudo
+Credenciais & Integrações
+Uso & Custos das APIs
+Tudo funcionando
+Cada login é um ambiente isolado · as chaves se auto-aplicam ao validar.
+Re-verificar tudo
+Núcleo & Segurança
+Banco de dados & Infra
+IA (Claude)
+WhatsApp (Evolution API)
+E-mail (Resend) + DNS
+Domínio & DNS do sistema
+Prospecção — Vibe Prospecting
+Criativos — Higgsfield
+Checkout / Pagamentos
+Rastreamento / Pixels
+Chaves guardadas criptografadas; nunca expostas no front. Use Mostrar / Substituir / Rotacionar em cada segredo.
+Núcleo & Segurança
+obrigatório
+Cifra os segredos e protege o login.
+Conectado
+Chave de criptografia do app
+Segredo de sessão / JWT
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Banco de dados & Infra
+obrigatório
+Onde ficam seus dados e arquivos.
+Conectado
+URL do PostgreSQL
+URL do Redis
+Storage — Endpoint (S3/R2/MinIO)
+Access Key
+Secret Key
+Bucket
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+IA (Claude)
+obrigatório
+Liga o SDR, as copies e a busca de contexto (RAG).
+Conectado
+Anthropic API Key
+Modelo padrão
+Sonnet 4.6
+Opus 4.8
+Haiku 4.5
+Voyage AI Key (embeddings)
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+WhatsApp (Evolution API)
+obrigatório
+Liga o Inbox e a automação de conversas.
+Conectado
+URL da instância
+API Key da Evolution
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+E-mail (Resend) + DNS
+obrigatório
+Liga e-mails transacionais e evita o spam.
+Conectado
+Resend API Key
+Domínio de envio
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Domínio & DNS do sistema
+obrigatório
+Libera o painel e a publicação das landing pages.
+Conectado
+Domínio do app
+Domínio das landing pages
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Prospecção — Vibe Prospecting
+opcional
+Libera a aba de Prospecção e o chatbot.
+Pendente
+Chave / conexão do MCP (Explorium)
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Criativos — Higgsfield
+opcional
+Libera geração de imagem/vídeo nos Anúncios.
+Pendente
+Higgsfield API Key
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Checkout / Pagamentos
+opcional
+Libera vendas em tempo real no ROI.
+Pendente
+Provedor
+Hotmart
+Kiwify
+Eduzz
+Stripe
+Segredo do webhook
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar
+Rastreamento / Pixels
+opcional
+Libera rastreio de conversão nas landing pages.
+Pendente
+Meta Pixel ID
+Token Conversions API
+Google tag / Analytics
+Verificar / Testar
+Mostrar
+Substituir
+Rotacionar

@@ -1,0 +1,107 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+ROI & Finanças
+Quanto entra, quanto sai e se dá lucro
+Buscar leads, conversas, campanhas…
+⌘K
+Lançar
+Visão geral (ROI)
+Despesas
+Vendas
+Lançar despesa
+total gasto
+R$ 12.929
+Tráfego pago
+63%
+R$ 8.200
+Software & Assinaturas
+4%
+R$ 480
+Criativos & Conteúdo
+12%
+R$ 1.500
+Ferramentas
+5%
+R$ 600
+Equipe & Freelas
+14%
+R$ 1.800
+APIs & IA
+3%
+R$ 349
+DATA
+CATEGORIA
+DESCRIÇÃO
+QUEM PAGOU
+VALOR
+18/06
+Tráfego pago
+Meta Ads — campanha Live IA
+Você
+R$ 8.200
+15/06
+Software & Assinaturas
+Evolution API + Resend
+Você
+R$ 480
+12/06
+Criativos & Conteúdo
+Edição de 4 vídeos curtos
+Paula
+R$ 1.500
+10/06
+Ferramentas
+Créditos Vibe Prospecting
+Você
+R$ 600
+05/06
+Equipe & Freelas
+Designer freelancer
+Você
+R$ 1.800
+mês
+APIs & IA
+Claude · Anthropic (1,24M tokens)
+API
+R$ 99
+mês
+APIs & IA
+WhatsApp · Evolution (3.420 msgs)
+API
+R$ 92
+mês
+APIs & IA
+Vibe Prospecting (140 créditos)
+API
+R$ 151
+mês
+APIs & IA
+Resend (1.180 e-mails)
+API
+R$ 6
+mês
+APIs & IA
+Voyage AI + Storage R2
+API
+R$ 1
+Configuração do SDR salva.

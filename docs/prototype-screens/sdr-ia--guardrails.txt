@@ -1,0 +1,45 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+SDR de IA
+Configure seu vendedor de IA
+Buscar leads, conversas, campanhas…
+⌘K
+Salvar configuração
+Persona
+Modos do agente
+Playbooks por estágio
+Guardrails
+Cadências
+Nunca inventar preço, prazo ou promessa
+Só falar do produto e da oferta
+Não comparar com concorrente
+Não insistir com quem pediu pra parar
+Respeitar teto de toques e janela de 24h
+Escalar reembolso, cancelamento ou jurídico
+Palavras que disparam handoff para humano
+cancelar
+×
+reembolso
+×
+advogado
+×

@@ -1,0 +1,48 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Prospecção Ativa
+Encha o topo do funil com controle humano
+Buscar leads, conversas, campanhas…
+⌘K
+Buscar leads
+Fontes
+Leads não contatados
+Listas
+Abordagens
+Vibe Prospecting
+Conectado
+Oi! Sou o assistente do Vibe Prospecting. Descreva quem você procura — ex.: "diretores de RH em São Paulo, empresas de 50 a 200 funcionários".
+Contatos que não se manifestaram
+312 contatos receberam mensagem e nunca responderam.
+Buscar leads
+Leads que sumiram
+87 leads pararam de responder no meio da conversa.
+Buscar leads
+Varredura no LinkedIn
+Encontre líderes pelo cargo via Vibe Prospecting (consome créditos).
+Configurar ICP
+Importar base
+Suba um CSV e mapeie as colunas.
+Configurar
+Varredura via Vibe Prospecting — defina o ICP (consome créditos).
+Ação realizada.

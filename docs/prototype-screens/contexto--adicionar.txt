@@ -1,0 +1,94 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Arquivos de Contexto
+A base de conhecimento da sua IA
+Buscar leads, conversas, campanhas…
+⌘K
+Adicionar contexto
+A IA nunca inventa preço, prazo ou promessa. Se faltar contexto, ela marca como pendente e te avisa.
+Design System (.md)
+lido pela IA
+A IA lê este arquivo sempre que gera templates de e-mail e outras saídas visuais — para seguir sua marca, cores, tipografia e tom.
+Enviar .md
+Baixar exemplo .md
+Copiar template
+design-system.md · indexado
+# Design System — {Projeto}
+## Marca (obrigatório)
+- Nome, logo (URL), slogan
+## Cores (obrigatório)
+- Primária: #...  | Fundo: #...  | Texto: #...
+- Sucesso / Aviso / Erro
+## Tipografia (obrigatório)
+- Títulos: {fonte} | Corpo: {fonte}
+## Tom de voz (obrigatório)
+- Como a marca escreve (ex.: direto, caloroso, sem jargão)
+## Componentes / E-mail (obrigatório)
+- Estilo de botão, raio, espaçamento, largura, header/footer
+## Do / Don't (obrigatório)
+- O que sempre fazer / o que evitar
+Persona (tom de voz)
+Oferta e preço
+Objeções comuns
+FAQ
+Cliente ideal (ICP)
+Regras comerciais
+ARQUIVO
+TIPO
+VÍNCULO
+STATUS
+Oferta_Curso_1997.pdf
+Preços
+Curso IA
+● Indexado
+Objeções e respostas
+Objeções
+Curso IA
+● Indexado
+Tom_de_voz_Nina.txt
+Tom
+—
+● Processando
+ICP_Lideres.docx
+ICP
+Curso IA
+● Pendente
+Adicionar contexto
+✕
+Tipo*
+Design System (.md)
+Texto livre
+PDF
+FAQ
+Tabela de preços
+Objeções
+Tom de voz
+ICP
+Scripts
+Vincular a (opcional)
+Curso IA na Liderança
+Live IA na Liderança
+Conteúdo*
+ou arraste um PDF / arquivo de texto
+Cancelar
+Salvar e indexar
