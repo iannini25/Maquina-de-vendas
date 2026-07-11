@@ -17,7 +17,8 @@ const envSchema = z.object({
   EVOLUTION_GLOBAL_KEY: z.string().optional(),
   APP_ENCRYPTION_KEY: z.string().min(1),
   APP_URL: z.string().min(1),
-  /** Porta do endpoint GET /health (padrão 3001). */
+  /** Porta do endpoint GET /health (padrão 3001; WORKER_HEALTH_PORT tem precedência). */
+  WORKER_HEALTH_PORT: z.coerce.number().int().positive().optional(),
   HEALTH_PORT: z.coerce.number().int().positive().default(3001),
   /** Nível de log do pino (padrão: debug em dev, info em produção). */
   LOG_LEVEL: z.string().optional(),
@@ -34,5 +35,7 @@ export function loadEnv(source: Record<string, string | undefined> = process.env
       .join("; ");
     throw new Error(`Ambiente inválido para o worker — ${problemas}`);
   }
-  return parsed.data;
+  const env = parsed.data;
+  if (env.WORKER_HEALTH_PORT) env.HEALTH_PORT = env.WORKER_HEALTH_PORT;
+  return env;
 }
