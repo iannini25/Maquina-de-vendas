@@ -154,6 +154,54 @@ export async function seedDemoData(prisma: PrismaClient, ctx: SeedContext): Prom
     ],
   });
 
+  // Eventos de landing (views/CTA/signups) para alimentar taxas de conversão reais
+  const variants = await prisma.landingVariant.findMany({
+    where: { landingPageId: landing.id },
+    orderBy: { createdAt: "asc" },
+  });
+  const landingEvents: Array<{
+    landingPageId: string;
+    variantId: string;
+    type: "VIEW" | "CTA_WHATSAPP" | "SIGNUP";
+    visitorId: string;
+    createdAt: Date;
+  }> = [];
+  for (const [variantIndex, variant] of variants.entries()) {
+    const views = variantIndex === 0 ? 220 : 160;
+    const signups = variantIndex === 0 ? 68 : 61;
+    const ctas = variantIndex === 0 ? 90 : 74;
+    for (let i = 0; i < views; i++) {
+      const visitorId = `seed-v${variantIndex}-${i}`;
+      const at = daysAgo(1 + (i % 20), -(i % 24) * HOUR);
+      landingEvents.push({
+        landingPageId: landing.id,
+        variantId: variant.id,
+        type: "VIEW",
+        visitorId,
+        createdAt: at,
+      });
+      if (i < ctas) {
+        landingEvents.push({
+          landingPageId: landing.id,
+          variantId: variant.id,
+          type: "CTA_WHATSAPP",
+          visitorId,
+          createdAt: at,
+        });
+      }
+      if (i < signups) {
+        landingEvents.push({
+          landingPageId: landing.id,
+          variantId: variant.id,
+          type: "SIGNUP",
+          visitorId,
+          createdAt: at,
+        });
+      }
+    }
+  }
+  await prisma.landingEvent.createMany({ data: landingEvents });
+
   // ── Campanhas ──────────────────────────────────────────────────────────
   const campaign = await prisma.campaign.create({
     data: {
