@@ -1,6 +1,15 @@
 import { randomBytes } from "node:crypto";
 
-import { Prisma, prisma } from "@vendaflow/db";
+import { prisma } from "@vendaflow/db";
+
+/** P2002 sem depender de instanceof entre cópias do runtime do Prisma. */
+function isPrismaUniqueViolation(error: unknown): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    (error as { code?: string }).code === "P2002"
+  );
+}
 
 import { logEvent } from "@/lib/events";
 
@@ -158,7 +167,9 @@ export async function processCheckoutEvent(
     orderId = order.id;
   } catch (error) {
     // Conflito no unique = reentrega do provedor — responde 200 sem duplicar.
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+    // Checagem estrutural (não instanceof): com transpilePackages existem duas
+    // cópias do runtime do Prisma e o instanceof falha entre elas.
+    if (isPrismaUniqueViolation(error)) {
       return { status: 200, body: { ok: true, duplicated: true } };
     }
     throw error;

@@ -26,7 +26,26 @@ export async function cobrarLeadAction(leadIdRaw: string): Promise<CobrarLeadRes
 
   const lead = await ctx.db.lead.findUnique({
     where: { id: parsed.data },
-    select: { id: true, name: true, aiStatus: true, optedOut: true },
+    select: {
+      id: true,
+      name: true,
+      aiStatus: true,
+      optedOut: true,
+      conversations: {
+        where: { channel: "WHATSAPP" },
+        orderBy: { lastMessageAt: "desc" },
+        take: 1,
+        select: {
+          id: true,
+          messages: {
+            where: { direction: "IN" },
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            select: { id: true },
+          },
+        },
+      },
+    },
   });
   if (!lead) return { ok: false, error: "Lead não encontrado." };
   if (lead.optedOut) return { ok: false, error: "Este lead pediu para não receber mensagens." };
@@ -34,10 +53,17 @@ export async function cobrarLeadAction(leadIdRaw: string): Promise<CobrarLeadRes
     return { ok: false, error: "A IA está pausada para este lead — retome no Pipeline." };
   }
 
+  const conversation = lead.conversations[0];
+  if (!conversation) {
+    return { ok: false, error: "Este lead ainda não tem conversa — inicie uma pelo Inbox." };
+  }
+
   try {
-    await getQueue(QUEUES.automation).add("manual-followup", {
+    // A IA reavalia a conversa e faz o follow-up (contrato "reply" do worker).
+    await getQueue(QUEUES.agentReply).add("reply", {
       workspaceId: ctx.workspaceId,
-      leadId: lead.id,
+      conversationId: conversation.id,
+      messageId: conversation.messages[0]?.id ?? "",
     });
   } catch {
     return { ok: false, error: "Não foi possível enfileirar a cobrança. Tente de novo." };

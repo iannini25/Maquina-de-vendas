@@ -31,7 +31,8 @@ const MAX_FILE_BYTES = 8 * 1024 * 1024;
 /** Enfileira a ingestão RAG; retorna false se a fila estiver indisponível. */
 async function enqueueIngest(workspaceId: string, contextFileId: string): Promise<boolean> {
   try {
-    await getQueue(QUEUES.contextIngest).add("ingest-context-file", {
+    // Nome do job = contrato do worker (CONTEXT_INGEST_JOBS.ingestFile)
+    await getQueue(QUEUES.contextIngest).add("ingest-file", {
       workspaceId,
       contextFileId,
     });

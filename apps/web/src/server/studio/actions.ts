@@ -70,7 +70,7 @@ async function persistNewContext(ctx: WorkspaceContext, content: string): Promis
     },
   });
   try {
-    await getQueue(QUEUES.contextIngest).add("ingest-context-file", {
+    await getQueue(QUEUES.contextIngest).add("ingest-file", {
       workspaceId: ctx.workspaceId,
       contextFileId: file.id,
     });

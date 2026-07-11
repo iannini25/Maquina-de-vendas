@@ -35,5 +35,5 @@ test("importa CSV com mapeamento e mostra relatório", async ({ page }) => {
   // Leads no espelho
   await page.goto("/leads", { waitUntil: "domcontentloaded" });
   await expect(page.getByText(`Import Um ${STAMP}`).first()).toBeVisible({ timeout: 15_000 });
-  await expect(page.getByText(`Import Dois ${STAMP}`).first()).toBeVisible();
+  await expect(page.getByText(`Import Dois ${STAMP}`).first()).toBeVisible({ timeout: 15_000 });
 });
