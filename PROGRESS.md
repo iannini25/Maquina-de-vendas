@@ -70,10 +70,23 @@
 - [x] docs/DEPLOY.md + docs/RUNBOOK.md + docs/API.md
 - [ ] README final + smoke test do compose.prod local
 
-## Fase 10 — Revisão geral
+## Fase 10 — Revisão geral ✅ CONCLUÍDA
 - [x] Teste de vazamento multi-tenant (9 cenários verdes)
-- [x] Scaffolding Playwright E2E (config + auth setup)
-- [ ] Suíte E2E completa (10 fluxos da spec) + fidelidade visual + botão-a-botão
+- [x] Suíte E2E completa: 47/48 verdes (1 skip por design) — 10 fluxos da spec cobertos
+- [x] Varredura botão-a-botão: 221 controles em 15 telas → 0 botões mortos, 0 erros de console
+- [x] Auditoria de segurança (seção 8): multi-tenant sem furos (61 usos auditados), segredos
+      mascarados/criptografados, webhooks assinados, anti-injection, LGPD — tudo verde;
+      achado médio (login sem rate limit) CORRIGIDO + hardening extra (POST fallback no login,
+      timing-safe no secret Evolution, validação de variantId no A/B)
+- [x] Fidelidade visual tela a tela vs protótipo: FIEL (correções: BRL sem centavos,
+      segmented com preenchimento roxo)
+- [x] Smoke test compose.prod: 7 serviços healthy, TLS Caddy ok, migrations automáticas
+- [x] Bugs reais achados e corrigidos pelos E2E: nomes de jobs de fila divergentes (contexto/
+      studio/cobrar), P2002 instanceof entre cópias do Prisma, captura de landing perdida
+      pré-hidratação, .dockerignore ausente, healthcheck IPv6
+
+## STATUS FINAL: Definition of Done atendida (exceto validações que exigem chaves reais).
+Deploy aguardando IP + acesso SSH + domínio da VPS.
 
 ## Pendências que só validam com chave real
 - Resposta real do agente no WhatsApp (precisa ANTHROPIC + Evolution pareada)

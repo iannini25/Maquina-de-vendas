@@ -19,3 +19,13 @@
   extra) e carimba workspaceId em creates; modelos-filhos guardados pela relação com o pai.
 - **D007 · E-mail sem SDK do Resend.** Envio via fetch direto na API (menos deps); dev usa
   Mailpit por SMTP (nodemailer).
+- **D008 · Marca "VendaFlow".** O protótipo usa o logotipo "sales4U"; o produto segue a spec
+  ("VendaFlow / Máquina de Vendas") — layout e copy do protótipo preservados.
+- **D009 · unpdf para extração de PDF** no worker (única dep nova do RAG; serverless-friendly).
+- **D010 · Erros do Prisma por código, não instanceof.** Com transpilePackages existem duas
+  cópias do runtime — capturar P2002 estruturalmente ((error as {code}).code === "P2002").
+- **D011 · Worker Docker sem pnpm prune.** prune --prod falha em install filtrado de workspace
+  e removeria o Prisma Client gerado; custo: imagem maior (aceitável para self-host).
+- **D012 · Healthchecks com 127.0.0.1.** "localhost" resolve ::1 no Alpine e o Next escuta IPv4.
+- **D013 · Forms públicos com progressive enhancement.** Captura de landing e login usam
+  <form action>/method=post para nunca perder dados (ou vazar credenciais) pré-hidratação.
