@@ -1,0 +1,52 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Templates de E-mail
+Conteúdo por IA · estrutura e marca configuráveis
+Buscar leads, conversas, campanhas…
+⌘K
+Novo template
+Usando o Design System cadastrado — a IA segue marca, cores e tom ao gerar o corpo dos e-mails.
+Confirmação de compra
+Ativo
+· Pós-venda
+Entrega de acesso
+Ativo
+· Pós-venda
+Boas-vindas
+Ativo
+· Automação
+Pesquisa NPS
+Ativo
+· Pós-venda
+Oferta complementar (upsell)
+Rascunho
+· Pós-venda
+Reativação
+Ativo
+· Automação
+Recuperação de senha
+Ativo
+· Sistema
+Lembrete de live
+Rascunho
+· Campanha

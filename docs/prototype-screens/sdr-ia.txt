@@ -1,0 +1,51 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+SDR de IA
+Configure seu vendedor de IA
+Buscar leads, conversas, campanhas…
+⌘K
+Salvar configuração
+Persona
+Modos do agente
+Playbooks por estágio
+Guardrails
+Cadências
+Nome do assistente*
+Fala como
+Você (o dono)
+O Mentor
+A Equipe
+Tom
+Formal
+Equilibrado
+Informal
+Tamanho das mensagens
+Curtas
+Médias
+Usa emojis
+Ativa 24/7
+Desligue para limitar a uma janela de horário.
+PRÉVIA DA MENSAGEM
+Oi! Quanto custa o curso?
+Oi! O curso "IA na Liderança" é R$ 1.997, em até 12x. Quer que eu te mostre o que está incluso antes?
+Nina · IA

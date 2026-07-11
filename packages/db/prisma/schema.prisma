@@ -1,0 +1,1076 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector")]
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Identidade & Tenancy
+// ─────────────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  memberships Membership[]
+  notes       Note[]
+  tasks       Task[]
+  approvals   Approval[]   @relation("ApprovalDecider")
+  ownedLeads  Lead[]       @relation("LeadOwner")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  settings  Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships      Membership[]
+  credentials      Credential[]
+  setupState       SetupState?
+  productOffers    ProductOffer[]
+  contextFiles     ContextFile[]
+  agentPersonas    AgentPersona[]
+  agentModes       AgentMode[]
+  campaigns        Campaign[]
+  ads              Ad[]
+  landingPages     LandingPage[]
+  templates        Template[]
+  pipelineStages   PipelineStage[]
+  leads            Lead[]
+  conversations    Conversation[]
+  automationFlows  AutomationFlow[]
+  approvals        Approval[]
+  orders           Order[]
+  expenses         Expense[]
+  emailTemplates   EmailTemplate[]
+  prospectLists    ProspectList[]
+  eventLogs        EventLog[]
+  webhookEndpoints WebhookEndpoint[]
+  aiUsages         AiUsage[]
+  deals            Deal[]
+  notes            Note[]
+  tasks            Task[]
+  accessGrants     AccessGrant[]
+  stagePlaybooks   StagePlaybook[]
+}
+
+enum MembershipRole {
+  OWNER
+  ADMIN
+  SELLER
+}
+
+model Membership {
+  id          String         @id @default(cuid())
+  userId      String
+  workspaceId String
+  role        MembershipRole @default(SELLER)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId])
+  @@index([workspaceId])
+}
+
+enum CredentialProvider {
+  ANTHROPIC
+  VOYAGE
+  EVOLUTION
+  RESEND
+  S3
+  META_PIXEL
+  GOOGLE_TAG
+  HOTMART
+  KIWIFY
+  EDUZZ
+  STRIPE
+  EXPLORIUM
+  HIGGSFIELD
+}
+
+enum CredentialStatus {
+  PENDING
+  OK
+  ERROR
+}
+
+model Credential {
+  id            String             @id @default(cuid())
+  workspaceId   String
+  provider      CredentialProvider
+  dataEncrypted String
+  status        CredentialStatus   @default(PENDING)
+  lastCheckAt   DateTime?
+  lastError     String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, provider])
+  @@index([workspaceId])
+}
+
+model SetupState {
+  id          String    @id @default(cuid())
+  workspaceId String    @unique
+  checklist   Json      @default("{}")
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Produto & Conhecimento
+// ─────────────────────────────────────────────────────────────────────────
+
+model ProductOffer {
+  id               String   @id @default(cuid())
+  workspaceId      String
+  name             String
+  priceCents       Int
+  currency         String   @default("BRL")
+  bonuses          Json     @default("[]")
+  guarantee        String?
+  promises         Json     @default("[]")
+  restrictions     Json     @default("[]")
+  accessLinks      Json     @default("[]")
+  upsellWindowDays Int      @default(7)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  workspace     Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  contextFiles  ContextFile[]
+  campaigns     Campaign[]
+  landingPages  LandingPage[]
+  deals         Deal[]
+  orders        Order[]
+
+  @@index([workspaceId])
+}
+
+enum ContextFileType {
+  PDF
+  TEXT
+  FAQ
+  PRICING
+  OBJECTIONS
+  TONE
+  ICP
+  SCRIPTS
+  DESIGN_SYSTEM
+}
+
+enum ContextFileStatus {
+  PENDING
+  PROCESSING
+  INDEXED
+  ERROR
+}
+
+model ContextFile {
+  id             String            @id @default(cuid())
+  workspaceId    String
+  type           ContextFileType
+  name           String
+  storageKey     String?
+  rawText        String?
+  status         ContextFileStatus @default(PENDING)
+  error          String?
+  productOfferId String?
+  campaignId     String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  workspace    Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  productOffer ProductOffer?  @relation(fields: [productOfferId], references: [id], onDelete: SetNull)
+  campaign     Campaign?      @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  chunks       ContextChunk[]
+
+  @@index([workspaceId, status])
+  @@index([productOfferId])
+}
+
+model ContextChunk {
+  id            String                       @id @default(cuid())
+  contextFileId String
+  content       String
+  embedding     Unsupported("vector(1024)")?
+  tokenCount    Int                          @default(0)
+  createdAt     DateTime                     @default(now())
+
+  contextFile ContextFile @relation(fields: [contextFileId], references: [id], onDelete: Cascade)
+
+  @@index([contextFileId])
+}
+
+model AgentPersona {
+  id              String   @id @default(cuid())
+  workspaceId     String
+  name            String
+  speaksAs        String
+  tone            String
+  emojis          Boolean  @default(true)
+  msgLength       String   @default("short")
+  activeHours     Json     @default("{\"start\":\"08:00\",\"end\":\"21:00\",\"days\":[1,2,3,4,5,6]}")
+  icpText         String?
+  commercialRules String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+enum ConfigSource {
+  PLATFORM
+  MARKDOWN
+}
+
+model AgentMode {
+  id          String       @id @default(cuid())
+  workspaceId String
+  slot        Int
+  name        String
+  source      ConfigSource @default(PLATFORM)
+  configJson  Json?
+  markdownKey String?
+  isActive    Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, slot])
+  @@index([workspaceId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Aquisição
+// ─────────────────────────────────────────────────────────────────────────
+
+enum CampaignType {
+  STANDARD
+  LAUNCH_LIVE
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  FINISHED
+}
+
+model Campaign {
+  id               String         @id @default(cuid())
+  workspaceId      String
+  name             String
+  type             CampaignType   @default(STANDARD)
+  objective        String?
+  channel          String?
+  audience         String?
+  budgetCents      Int?
+  cplTargetCents   Int?
+  status           CampaignStatus @default(DRAFT)
+  startsAt         DateTime?
+  endsAt           DateTime?
+  liveAt           DateTime?
+  productOfferId   String?
+  landingPageId    String?
+  warmupEnabled    Boolean        @default(false)
+  remindersEnabled Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  productOffer ProductOffer? @relation(fields: [productOfferId], references: [id], onDelete: SetNull)
+  landingPage  LandingPage?  @relation("CampaignLanding", fields: [landingPageId], references: [id], onDelete: SetNull)
+  ads          Ad[]
+  leads        Lead[]
+  expenses     Expense[]
+  contextFiles ContextFile[]
+
+  @@index([workspaceId, status])
+}
+
+enum AdStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+model Ad {
+  id             String   @id @default(cuid())
+  workspaceId    String
+  campaignId     String?
+  angle          String?
+  hook           String?
+  headline       String
+  body           String
+  cta            String?
+  framework      String?
+  channel        String?
+  status         AdStatus @default(DRAFT)
+  savedToLibrary Boolean  @default(false)
+  visualHint     String?
+  metrics        Json     @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, status])
+}
+
+enum LandingGoal {
+  WHATSAPP
+  BUY
+  LIVE_SIGNUP
+}
+
+enum LandingKind {
+  BUILDER
+  EXTERNAL_URL
+  UPLOADED
+}
+
+enum LandingStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model LandingPage {
+  id             String        @id @default(cuid())
+  workspaceId    String
+  name           String
+  slug           String
+  goal           LandingGoal   @default(WHATSAPP)
+  kind           LandingKind   @default(BUILDER)
+  externalUrl    String?
+  storageKey     String?
+  productOfferId String?
+  status         LandingStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  workspace    Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  productOffer ProductOffer?    @relation(fields: [productOfferId], references: [id], onDelete: SetNull)
+  variants     LandingVariant[]
+  events       LandingEvent[]
+  campaigns    Campaign[]       @relation("CampaignLanding")
+  leads        Lead[]
+
+  @@unique([workspaceId, slug])
+  @@index([workspaceId, status])
+}
+
+enum DeviceTarget {
+  ANY
+  MOBILE
+  TABLET
+  DESKTOP
+}
+
+model LandingVariant {
+  id            String       @id @default(cuid())
+  landingPageId String
+  name          String
+  deviceTarget  DeviceTarget @default(ANY)
+  weight        Int          @default(50)
+  blocks        Json         @default("[]")
+  metrics       Json         @default("{}")
+  isWinner      Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  landingPage LandingPage    @relation(fields: [landingPageId], references: [id], onDelete: Cascade)
+  events      LandingEvent[]
+
+  @@index([landingPageId])
+}
+
+enum LandingEventType {
+  VIEW
+  CTA_WHATSAPP
+  CTA_BUY
+  SIGNUP
+}
+
+model LandingEvent {
+  id            String           @id @default(cuid())
+  landingPageId String
+  variantId     String?
+  type          LandingEventType
+  visitorId     String
+  leadId        String?
+  meta          Json             @default("{}")
+  createdAt     DateTime         @default(now())
+
+  landingPage LandingPage     @relation(fields: [landingPageId], references: [id], onDelete: Cascade)
+  variant     LandingVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  lead        Lead?           @relation(fields: [leadId], references: [id], onDelete: SetNull)
+
+  @@index([landingPageId, type])
+  @@index([landingPageId, variantId])
+}
+
+enum TemplateKind {
+  LANDING
+  EMAIL
+}
+
+enum TemplateSource {
+  BUILTIN
+  UPLOADED
+  LINK
+}
+
+model Template {
+  id          String         @id @default(cuid())
+  workspaceId String
+  kind        TemplateKind
+  name        String
+  source      TemplateSource @default(BUILTIN)
+  data        Json           @default("{}")
+  storageKey  String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, kind])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// CRM
+// ─────────────────────────────────────────────────────────────────────────
+
+enum StageSystemKey {
+  NEW
+  WON
+  LOST
+  POST_SALE
+  NO_REPLY
+  REACTIVATE
+}
+
+model PipelineStage {
+  id          String          @id @default(cuid())
+  workspaceId String
+  name        String
+  order       Int
+  color       String          @default("#8B5CF6")
+  isFixed     Boolean         @default(false)
+  systemKey   StageSystemKey?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  workspace Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  playbook  StagePlaybook?
+  leads     Lead[]
+
+  @@index([workspaceId, order])
+}
+
+enum Autonomy {
+  DRAFT
+  SEMI
+  AUTO
+}
+
+model StagePlaybook {
+  id              String       @id @default(cuid())
+  workspaceId     String
+  stageId         String       @unique
+  source          ConfigSource @default(PLATFORM)
+  objective       String
+  instructions    String       @default("")
+  allowedActions  Json         @default("[]")
+  advanceWhen     String       @default("")
+  regressWhen     String       @default("")
+  cadence         Json         @default("{\"intervals\":[],\"maxTouches\":0}")
+  handoffTriggers Json         @default("[]")
+  autonomy        Autonomy     @default(SEMI)
+  markdownKey     String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  workspace Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  stage     PipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+enum Temperature {
+  COLD
+  WARM
+  HOT
+}
+
+enum AiStatus {
+  RUNNING
+  WAITING_HUMAN
+  PAUSED
+}
+
+model Lead {
+  id                String      @id @default(cuid())
+  workspaceId       String
+  name              String
+  phone             String
+  email             String?
+  source            String      @default("manual")
+  campaignId        String?
+  landingPageId     String?
+  stageId           String
+  temperature       Temperature @default(COLD)
+  score             Int         @default(0)
+  valueCents        Int?
+  tags              String[]    @default([])
+  ownerId           String?
+  lastInteractionAt DateTime?
+  nextActionText    String?
+  aiStatus          AiStatus    @default(RUNNING)
+  lostReason        String?
+  prospectOrigin    String?
+  optedOut          Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  workspace      Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign       Campaign?       @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  landingPage    LandingPage?    @relation(fields: [landingPageId], references: [id], onDelete: SetNull)
+  stage          PipelineStage   @relation(fields: [stageId], references: [id])
+  owner          User?           @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  notes          Note[]
+  tasks          Task[]
+  deals          Deal[]
+  conversations  Conversation[]
+  automationRuns AutomationRun[]
+  approvals      Approval[]
+  orders         Order[]
+  accessGrants   AccessGrant[]
+  landingEvents  LandingEvent[]
+  prospects      Prospect[]
+
+  @@index([workspaceId, stageId])
+  @@index([workspaceId, phone])
+  @@index([workspaceId, aiStatus])
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  workspaceId String
+  leadId      String
+  authorId    String?
+  text        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  author    User?     @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([leadId])
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  workspaceId String
+  leadId      String?
+  title       String
+  dueAt       DateTime
+  doneAt      DateTime?
+  assigneeId  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead      Lead?     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  assignee  User?     @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, dueAt])
+}
+
+enum DealStatus {
+  OPEN
+  WON
+  LOST
+}
+
+model Deal {
+  id             String     @id @default(cuid())
+  workspaceId    String
+  leadId         String
+  productOfferId String
+  valueCents     Int
+  status         DealStatus @default(OPEN)
+  wonAt          DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  workspace    Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead         Lead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  productOffer ProductOffer @relation(fields: [productOfferId], references: [id])
+
+  @@index([workspaceId, status])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Conversas & Automação
+// ─────────────────────────────────────────────────────────────────────────
+
+enum Channel {
+  WHATSAPP
+  INSTAGRAM
+  EMAIL
+}
+
+enum ConversationState {
+  BOT
+  HUMAN
+}
+
+model Conversation {
+  id            String            @id @default(cuid())
+  workspaceId   String
+  leadId        String
+  channel       Channel           @default(WHATSAPP)
+  externalId    String?
+  state         ConversationState @default(BOT)
+  lastMessageAt DateTime?
+  unreadCount   Int               @default(0)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  messages  Message[]
+
+  @@index([workspaceId, lastMessageAt])
+  @@index([workspaceId, externalId])
+}
+
+enum MessageDirection {
+  IN
+  OUT
+}
+
+enum AuthorType {
+  LEAD
+  AI
+  HUMAN
+  SYSTEM
+}
+
+enum MessageKind {
+  TEXT
+  IMAGE
+  FILE
+  LINK
+  BUTTONS
+  TEMPLATE
+}
+
+enum MessageStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+model Message {
+  id             String           @id @default(cuid())
+  conversationId String
+  direction      MessageDirection
+  authorType     AuthorType
+  kind           MessageKind      @default(TEXT)
+  content        Json
+  externalId     String?
+  status         MessageStatus    @default(QUEUED)
+  sentAt         DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+  @@index([externalId])
+}
+
+model AutomationFlow {
+  id          String   @id @default(cuid())
+  workspaceId String
+  name        String
+  trigger     Json
+  steps       Json     @default("[]")
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  runs      AutomationRun[]
+
+  @@index([workspaceId, isActive])
+}
+
+enum RunState {
+  RUNNING
+  PAUSED
+  DONE
+  CANCELLED
+}
+
+model AutomationRun {
+  id           String    @id @default(cuid())
+  flowId       String
+  leadId       String
+  cursor       Int       @default(0)
+  state        RunState  @default(RUNNING)
+  nextRunAt    DateTime?
+  pausedReason String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  flow AutomationFlow @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  lead Lead           @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([state, nextRunAt])
+  @@index([leadId])
+}
+
+enum ApprovalKind {
+  SEND_PAYMENT_LINK
+  DISCOUNT
+  BULK_OUTREACH
+  MESSAGE_DRAFT
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Approval {
+  id          String         @id @default(cuid())
+  workspaceId String
+  kind        ApprovalKind
+  leadId      String?
+  payload     Json
+  status      ApprovalStatus @default(PENDING)
+  decidedById String?
+  decidedAt   DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead      Lead?     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  decidedBy User?     @relation("ApprovalDecider", fields: [decidedById], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, status])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Venda, Pós-venda & Finanças
+// ─────────────────────────────────────────────────────────────────────────
+
+enum OrderSource {
+  MANUAL
+  PIPELINE
+  WEBHOOK
+}
+
+enum OrderStatus {
+  PAID
+  REFUNDED
+  CHARGEBACK
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  workspaceId    String
+  leadId         String?
+  productOfferId String
+  valueCents     Int
+  qty            Int         @default(1)
+  channel        String?
+  source         OrderSource @default(MANUAL)
+  provider       String?
+  externalId     String?
+  status         OrderStatus @default(PAID)
+  paidAt         DateTime    @default(now())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead         Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  productOffer ProductOffer  @relation(fields: [productOfferId], references: [id])
+  accessGrants AccessGrant[]
+
+  @@unique([workspaceId, provider, externalId])
+  @@index([workspaceId, paidAt])
+}
+
+enum AccessStatus {
+  NEVER
+  ACCESSED
+  ACTIVE
+  IDLE
+}
+
+model AccessGrant {
+  id                 String       @id @default(cuid())
+  workspaceId        String
+  orderId            String
+  leadId             String
+  url                String
+  trackedToken       String       @unique
+  firstAccessAt      DateTime?
+  lastActivityAt     DateTime?
+  totalActiveSeconds Int          @default(0)
+  status             AccessStatus @default(NEVER)
+  idleThresholdDays  Int          @default(5)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  order       Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  lead        Lead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  usageEvents UsageEvent[]
+
+  @@index([workspaceId, status])
+}
+
+enum UsageEventType {
+  LINK_OPENED
+  HEARTBEAT
+  MANUAL_MARK
+}
+
+model UsageEvent {
+  id            String         @id @default(cuid())
+  accessGrantId String
+  type          UsageEventType
+  meta          Json           @default("{}")
+  createdAt     DateTime       @default(now())
+
+  accessGrant AccessGrant @relation(fields: [accessGrantId], references: [id], onDelete: Cascade)
+
+  @@index([accessGrantId, createdAt])
+}
+
+enum ExpenseCategory {
+  PAID_TRAFFIC
+  SOFTWARE
+  TOOLS
+  TEAM
+  CREATIVE
+  OTHER
+}
+
+model Expense {
+  id          String          @id @default(cuid())
+  workspaceId String
+  category    ExpenseCategory
+  valueCents  Int
+  description String
+  paidBy      String?
+  date        DateTime
+  campaignId  String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, date])
+}
+
+enum EmailPurpose {
+  PURCHASE_CONFIRM
+  ACCESS
+  WELCOME
+  NPS
+  UPSELL
+  REACTIVATION
+  PASSWORD
+  LIVE_REMINDER
+  CUSTOM
+}
+
+enum EmailBodySource {
+  AI
+  MANUAL
+}
+
+enum EmailTemplateStatus {
+  DRAFT
+  ACTIVE
+}
+
+model EmailTemplate {
+  id          String              @id @default(cuid())
+  workspaceId String
+  name        String
+  purpose     EmailPurpose        @default(CUSTOM)
+  structure   Json                @default("{}")
+  bodySource  EmailBodySource     @default(MANUAL)
+  bodyText    String              @default("")
+  status      EmailTemplateStatus @default(DRAFT)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, purpose])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Prospecção
+// ─────────────────────────────────────────────────────────────────────────
+
+enum ProspectSource {
+  VIBE
+  LINKEDIN
+  IMPORT
+  MANUAL
+  INERT_CONTACTS
+  GHOSTED
+}
+
+model ProspectList {
+  id          String         @id @default(cuid())
+  workspaceId String
+  name        String
+  source      ProspectSource @default(MANUAL)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  prospects Prospect[]
+
+  @@index([workspaceId])
+}
+
+model Prospect {
+  id        String   @id @default(cuid())
+  listId    String
+  name      String
+  company   String?
+  role      String?
+  phone     String?
+  email     String?
+  contacted Boolean  @default(false)
+  leadId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  list      ProspectList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  lead      Lead?        @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  outreachs Outreach[]
+
+  @@index([listId, contacted])
+}
+
+enum OutreachStatus {
+  DRAFT
+  APPROVED
+  SENT
+  CONVERTED
+}
+
+model Outreach {
+  id           String         @id @default(cuid())
+  prospectId   String
+  message      String
+  status       OutreachStatus @default(DRAFT)
+  approvedById String?
+  sentAt       DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  prospect Prospect @relation(fields: [prospectId], references: [id], onDelete: Cascade)
+
+  @@index([prospectId, status])
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Sistema
+// ─────────────────────────────────────────────────────────────────────────
+
+enum ActorType {
+  USER
+  AI
+  SYSTEM
+  WEBHOOK
+}
+
+model EventLog {
+  id          String    @id @default(cuid())
+  workspaceId String
+  actorType   ActorType
+  actorId     String?
+  type        String
+  entity      String
+  entityId    String
+  data        Json      @default("{}")
+  createdAt   DateTime  @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
+  @@index([workspaceId, entity, entityId])
+  @@index([workspaceId, type])
+}
+
+model WebhookEndpoint {
+  id          String   @id @default(cuid())
+  workspaceId String
+  provider    String
+  secret      String
+  url         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, provider])
+}
+
+model AiUsage {
+  id           String   @id @default(cuid())
+  workspaceId  String
+  feature      String
+  model        String
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  costMicros   Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId, createdAt])
+}

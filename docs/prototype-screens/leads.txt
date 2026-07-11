@@ -1,0 +1,112 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Leads
+Visão de leitura · espelho do Pipeline
+Buscar leads, conversas, campanhas…
+⌘K
+Abrir Pipeline
+Esta é uma cópia do Pipeline, só para visualizar todos os leads em lista. Para agir (mover estágio, conversar, configurar IA), use o Pipeline.
+10
+total de leads
+2
+novos
+2
+em negociação
+5
+quentes
+NOME ↕
+ESTÁGIO
+TEMP.
+CANAL
+SCORE ↕
+STATUS IA
+BC
+Bruno Carvalho
+Interessado
+Quente
+WhatsApp
+68
+IA cuidando
+CS
+Camila Souza
+Qualificado
+Morno
+Instagram
+58
+Aguardando você
+EP
+Eduardo Pinheiro
+Qualificado
+Quente
+WhatsApp
+72
+IA cuidando
+JM
+João Mendonça
+Em negociação
+Quente
+WhatsApp
+88
+Aguardando você
+JC
+Juliana Costa
+Em conversa
+Morno
+WhatsApp
+41
+IA cuidando
+LD
+Larissa Dias
+Em negociação
+Quente
+WhatsApp
+84
+Pausado
+MT
+Marcos Tavares
+Novo lead
+Frio
+WhatsApp
+24
+IA cuidando
+PL
+Patrícia Lemes
+Novo lead
+Frio
+Instagram
+18
+IA cuidando
+RA
+Rafael Andrade
+Em conversa
+Morno
+WhatsApp
+46
+IA cuidando
+SA
+Sérgio Almeida
+Venda concluída
+Quente
+WhatsApp
+100
+IA cuidando

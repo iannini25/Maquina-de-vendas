@@ -1,0 +1,110 @@
+sales
+4U
+PRINCIPAL
+Dashboard
+Pipeline
+Leads
+Inbox
+7
+Campanhas
+Pós-venda
+CRESCIMENTO
+Landing Pages
+Anúncios
+Prospecção
+Templates de E-mail
+INTELIGÊNCIA
+Contexto
+SDR de IA
+RESULTADO
+ROI & Finanças
+Você
+Workspace · Liderança IA
+Pipeline
+Curso · IA na Liderança
+26 leads ativos · 12 estágios
+Buscar leads, conversas, campanhas…
+⌘K
+Novo lead
+Todos os estágios
+IA cuidando
+Aguardando você
+Temperatura
+IA cuidando
+Aguardando você
+Pausado
+Novo lead
+0
+Em jogo · R$ 0
+SDR · Apresentar e criar rapport
++ Adicionar lead
+Em conversa
+0
+Em jogo · R$ 0
+SDR · Descobrir a dor
++ Adicionar lead
+Qualificado
+1
+Em jogo · R$ 1.997
+SDR · Mapear objeções
+CS
+Camila Souza
+Indicação
+Aguardando você
+"Preciso ver com meu sócio antes de decidir."
+R$ 1.997
+há 30 min
++ Adicionar lead
+Interessado
+0
+Em jogo · R$ 0
+SDR · Prova social e valor
++ Adicionar lead
+Em negociação
+1
+Em jogo · R$ 1.997
+SDR · Fechar e enviar pagamento
+JM
+João Mendonça
+Anúncio Meta
+Aguardando você
+"Consegue um desconto? Fecho hoje."
+R$ 1.997
+há 4 min
++ Adicionar lead
+Compra direta
+0
+Em jogo · R$ 0
+SDR · Acelerar checkout
++ Adicionar lead
+Venda concluída
+0
+Em jogo · R$ 0
+SDR · Onboarding e entrega
++ Adicionar lead
+Pós-venda
+0
+Em jogo · R$ 0
+SDR · Reter e fazer upsell
++ Adicionar lead
+Não respondeu
+0
+Em jogo · R$ 0
+SDR · Reativar com cadência
++ Adicionar lead
+Reativar depois
+0
+Em jogo · R$ 0
+SDR · Nutrição de longo prazo
++ Adicionar lead
+Ganho
+0
+Em jogo · R$ 0
+Fixo · Negócio ganho
++ Adicionar lead
+Perdido
+0
+Em jogo · R$ 0
+Fixo · Negócio perdido
++ Adicionar lead
+Cobrança enviada pela IA pelo WhatsApp.
