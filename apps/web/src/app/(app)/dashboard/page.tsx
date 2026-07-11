@@ -1,18 +1,36 @@
 import type { Metadata } from "next";
 
+import { PageHeader } from "@/components/shell/page-header";
+import { requireWorkspace } from "@/lib/session";
+import { getDashboardData } from "@/server/dashboard/queries";
+
+import { formatBRLShort } from "./brl";
+import { ArrowBadge, DashboardView, PrimaryLink } from "./dashboard-view";
+
 export const metadata: Metadata = { title: "Dashboard" };
 
-/** Placeholder da Fase 0 — substituído pelo porte fiel do protótipo na Fase 1. */
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const ctx = await requireWorkspace();
+  const data = await getDashboardData(ctx);
+
+  const subtitle =
+    data.waitingCount === 1
+      ? `1 lead aguarda você · ${formatBRLShort(data.openValueCents)} em jogo`
+      : `${data.waitingCount} leads aguardam você · ${formatBRLShort(data.openValueCents)} em jogo`;
+
   return (
-    <div className="p-6">
-      <h1 className="font-display text-xl font-semibold tracking-tight">Dashboard</h1>
-      <p className="mt-1 text-sm text-ink-2">Carregando sua máquina de vendas…</p>
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="skeleton h-28" />
-        ))}
-      </div>
-    </div>
+    <>
+      <PageHeader
+        title="Dashboard"
+        subtitle={subtitle}
+        actions={
+          <PrimaryLink href="/criar">
+            Criar com IA
+            <ArrowBadge />
+          </PrimaryLink>
+        }
+      />
+      <DashboardView data={data} />
+    </>
   );
 }
