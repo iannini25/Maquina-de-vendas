@@ -1,21 +1,39 @@
 import type { Metadata } from "next";
 
+import { ToastProvider } from "@/components/ui/toast";
 import { requireWorkspace } from "@/lib/session";
+import {
+  computeSetupStatus,
+  coreEnvironmentOk,
+  listCredentialViews,
+} from "@/server/credentials/service";
+import { getDomainSettings } from "@/server/setup/queries";
 
-export const metadata: Metadata = { title: "Configuração inicial" };
+import { SetupGateView } from "./_components/setup-view";
+import { toCoreDetailsDTO } from "./_components/types";
 
-/** Placeholder do Setup Gate — implementação completa na Fase 2. */
+export const metadata: Metadata = { title: "Configuração inicial do ambiente" };
+
+/** Setup Gate — bloqueia o app até as credenciais obrigatórias ficarem verdes. */
 export default async function SetupPage() {
-  await requireWorkspace();
+  const ctx = await requireWorkspace();
+
+  const [views, status, domains] = await Promise.all([
+    listCredentialViews(ctx.workspaceId),
+    computeSetupStatus(ctx.workspaceId),
+    getDomainSettings(ctx.workspaceId),
+  ]);
+
+  const core = toCoreDetailsDTO(coreEnvironmentOk());
 
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <h1 className="font-display text-2xl font-semibold tracking-tight">
-        Configuração inicial
-      </h1>
-      <p className="mt-2 text-sm text-ink-2">
-        Conecte suas credenciais para liberar o sistema. (Setup Gate — em construção)
-      </p>
-    </main>
+    <ToastProvider>
+      <SetupGateView
+        views={views}
+        core={core}
+        domains={domains}
+        alreadyCompleted={Boolean(status.completedAt)}
+      />
+    </ToastProvider>
   );
 }

@@ -1,7 +1,9 @@
+import { ToastProvider } from "@/components/ui/toast";
+
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex min-h-dvh items-center justify-center p-6">
-      <div className="w-full max-w-[420px]">{children}</div>
-    </main>
+    <ToastProvider>
+      <main className="min-h-dvh">{children}</main>
+    </ToastProvider>
   );
 }

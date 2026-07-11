@@ -38,6 +38,22 @@ export interface CoreDetailsDTO {
   };
 }
 
+/** Converte o retorno de coreEnvironmentOk() (Record aberto) no DTO tipado. */
+export function toCoreDetailsDTO(core: {
+  ok: boolean;
+  details: Record<string, boolean>;
+}): CoreDetailsDTO {
+  return {
+    ok: core.ok,
+    details: {
+      encryptionKey: Boolean(core.details.encryptionKey),
+      database: Boolean(core.details.database),
+      redis: Boolean(core.details.redis),
+      authSecret: Boolean(core.details.authSecret),
+    },
+  };
+}
+
 export interface DomainSettingsDTO {
   appDomain: string;
   landingDomain: string;

@@ -51,7 +51,7 @@ async function startIndexing(ctx: WorkspaceContext, contextFileId: string): Prom
 }
 
 function sanitizeFileName(name: string): string {
-  return name.replace(/[^\w.\-]+/g, "-").slice(0, 120);
+  return name.replace(/[^\w.-]+/g, "-").slice(0, 120);
 }
 
 /** Deriva o nome do arquivo a partir da primeira linha do conteúdo colado. */
