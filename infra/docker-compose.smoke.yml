@@ -1,0 +1,13 @@
+# Override para SMOKE TEST local do compose de produção.
+# Uso: docker compose -f infra/docker-compose.prod.yml -f infra/docker-compose.smoke.yml \
+#        --env-file infra/.env.smoke up -d --build
+# Remapeia portas que colidem com outros projetos na máquina de dev e
+# expõe o web direto (sem depender de DNS/TLS) para o healthcheck externo.
+services:
+  caddy:
+    ports: !override
+      - "8090:80"
+      - "8443:443"
+  web:
+    ports:
+      - "3080:3000"

@@ -47,3 +47,4 @@ maquina de vendas.zip
 
 # playwright auth state
 apps/web/e2e/.auth/
+infra/.env.smoke
