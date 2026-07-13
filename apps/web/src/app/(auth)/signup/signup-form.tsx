@@ -67,7 +67,13 @@ export function SignupForm() {
         </p>
       )}
 
-      <Button type="submit" variant="primary" size="lg" loading={isPending} className="w-full">
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        loading={isPending}
+        className="auth-cta-breathe w-full"
+      >
         {isPending ? "Criando workspace…" : "Criar minha máquina de vendas"}
       </Button>
     </form>

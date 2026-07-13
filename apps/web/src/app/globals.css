@@ -201,6 +201,113 @@ body {
   }
 }
 
+/* ────────────────────────────────────────────────────────────────────────
+   Auth (login/signup) — entrada orquestrada, fio de energia, monumento.
+   Todos os keyframes animam apenas transform/opacity/filter.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* Entrada com stagger CSS-only: --auth-delay vem inline de cada elemento */
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.auth-rise {
+  animation: auth-rise var(--dur-4) var(--ease-out) both;
+  animation-delay: var(--auth-delay, 0ms);
+}
+
+/* Dot do badge "máquina ligada" */
+@keyframes auth-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+.auth-pulse {
+  animation: auth-pulse 2.4s var(--ease-in-out) infinite;
+}
+
+/* Fio de energia que sobe pela divisa do split (segmento de 36% da altura) */
+@keyframes auth-beam {
+  0% {
+    opacity: 0;
+    transform: translateY(300%);
+  }
+  10% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  56%,
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+.auth-beam {
+  animation: auth-beam 7s var(--ease-in-out) infinite;
+}
+
+/* Flutuação lenta do monumento (seta da marca) */
+@keyframes auth-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-6deg);
+  }
+}
+.auth-float {
+  animation: auth-float 9s var(--ease-in-out) infinite;
+}
+
+/* CTA primário: glow que respira no hover (filter apenas; touch não dispara) */
+@keyframes auth-breathe {
+  0%,
+  100% {
+    filter: brightness(1.08) drop-shadow(0 8px 20px rgba(139, 92, 246, 0.3));
+  }
+  50% {
+    filter: brightness(1.16) drop-shadow(0 12px 30px rgba(139, 92, 246, 0.55));
+  }
+}
+@media (hover: hover) {
+  .auth-cta-breathe:hover:not(:disabled) {
+    animation: auth-breathe 2.6s var(--ease-in-out) infinite;
+  }
+}
+
+/* Grain sutil do painel de marketing */
+.auth-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-rise {
+    animation-delay: 0ms !important;
+  }
+  .auth-beam,
+  .auth-float,
+  .auth-pulse {
+    animation: none !important;
+  }
+}
+
 /* Foco visível consistente */
 :focus-visible {
   outline: 2px solid var(--color-brand-3);

@@ -44,9 +44,16 @@ export const fieldIcons = {
 } as const;
 
 const inputClass =
-  "w-full rounded-[11px] border border-hairline bg-surface-2 py-2.5 pl-10 pr-3.5 " +
-  "text-[13px] text-ink placeholder:text-ink-3 transition-colors duration-[130ms] " +
-  "focus:border-brand-3 focus:outline-none disabled:opacity-50";
+  "peer w-full rounded-[11px] border border-hairline bg-surface-2 py-2.5 pl-10 pr-3.5 " +
+  "text-[13px] text-ink placeholder:text-ink-3 shadow-[0_0_0_0_rgba(139,92,246,0)] " +
+  "transition-[border-color,box-shadow] duration-200 ease-[var(--ease-out)] " +
+  "hover:border-[rgba(255,255,255,0.14)] focus:border-brand-3/70 focus:outline-none " +
+  "focus:shadow-[0_0_0_3px_rgba(139,92,246,0.14),0_8px_24px_-14px_rgba(139,92,246,0.55)] " +
+  "disabled:opacity-50";
+
+const inputIconClass =
+  "pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-3 " +
+  "transition-colors duration-200 peer-focus:text-accent";
 
 export function AuthInput({
   label,
@@ -70,13 +77,10 @@ export function AuthInput({
         {label}
       </FieldLabel>
       <div className="relative">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-3"
-        >
+        <input id={id} className={cn(inputClass, className)} {...props} />
+        <span aria-hidden className={inputIconClass}>
           {fieldIcons[icon]}
         </span>
-        <input id={id} className={cn(inputClass, className)} {...props} />
       </div>
       <FieldError>{error}</FieldError>
     </div>
@@ -104,18 +108,15 @@ export function AuthPasswordInput({
         {label}
       </FieldLabel>
       <div className="relative">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-3"
-        >
-          {fieldIcons.lock}
-        </span>
         <input
           id={id}
           type={visible ? "text" : "password"}
           className={cn(inputClass, "pr-10", className)}
           {...props}
         />
+        <span aria-hidden className={inputIconClass}>
+          {fieldIcons.lock}
+        </span>
         <button
           type="button"
           aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
@@ -147,7 +148,7 @@ export function RememberRow() {
   const [checked, setChecked] = useState(true);
   return (
     <div className="flex items-center justify-between">
-      <label className="flex cursor-pointer items-center gap-2.5 text-[13px] text-ink-2">
+      <label className="group flex cursor-pointer items-center gap-2.5 text-[13px] text-ink-2">
         <input
           type="checkbox"
           name="remember"
@@ -158,13 +159,26 @@ export function RememberRow() {
         <span
           aria-hidden
           className={cn(
-            "flex size-[18px] items-center justify-center rounded-[5px] border transition-colors duration-[130ms]",
+            "flex size-[18px] items-center justify-center rounded-[5px] border text-white",
+            "transition-[border-color,background-color,box-shadow] duration-200 ease-[var(--ease-out)]",
+            "peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-3",
             checked
-              ? "border-brand-3/60 bg-[linear-gradient(135deg,#7C3AED,#A855F7)] text-white"
-              : "border-hairline bg-surface-2 text-transparent",
+              ? "border-brand-3/60 bg-[linear-gradient(135deg,#7C3AED,#A855F7)] shadow-[0_0_14px_-3px_rgba(168,85,247,0.6)]"
+              : "border-hairline bg-surface-2 group-hover:border-brand-3/40",
           )}
         >
-          <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            className={cn(
+              "size-3 transition-[transform,opacity] duration-200 ease-[var(--ease-spring)]",
+              checked ? "scale-100 opacity-100" : "scale-50 opacity-0",
+            )}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <path d="m5 12.5 4.5 4.5L19 7.5" />
           </svg>
         </span>

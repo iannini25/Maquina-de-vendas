@@ -69,7 +69,13 @@ function LoginFormInner() {
         </p>
       )}
 
-      <Button type="submit" variant="primary" size="lg" loading={isPending} className="w-full">
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        loading={isPending}
+        className="auth-cta-breathe w-full"
+      >
         {isPending ? "Entrando…" : "Entrar"}
       </Button>
     </form>
