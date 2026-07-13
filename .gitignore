@@ -48,3 +48,6 @@ maquina de vendas.zip
 # playwright auth state
 apps/web/e2e/.auth/
 infra/.env.smoke
+
+# dossiê com segredos de produção do CRM antigo — NUNCA commitar
+CRM-antigo-vps.md
