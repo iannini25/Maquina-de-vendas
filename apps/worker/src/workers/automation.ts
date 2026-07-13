@@ -5,8 +5,8 @@ import {
   type FlowDefinition,
   type RunContext,
   type StepAction,
-} from "@vendaflow/automation";
-import type { ActiveHours, Autonomy, CadenceConfig } from "@vendaflow/core";
+} from "@sales4u/automation";
+import type { ActiveHours, Autonomy, CadenceConfig } from "@sales4u/core";
 import { NotImplementedYetError } from "../errors.js";
 import {
   AUTOMATION_JOBS,

@@ -1,4 +1,4 @@
-export { formatBRL } from "@vendaflow/core";
+export { formatBRL } from "@sales4u/core";
 
 /** "R$ 1.997" — sem centavos, como o protótipo exibe valores de lead/oferta. */
 export function formatBRLShort(cents: number): string {

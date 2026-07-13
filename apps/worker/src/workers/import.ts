@@ -1,4 +1,4 @@
-import { normalizePhone } from "@vendaflow/messaging";
+import { normalizePhone } from "@sales4u/messaging";
 
 import { NotImplementedYetError } from "../errors.js";
 import { IMPORT_JOBS, importJobSchema, type ImportJobPayload } from "../payloads.js";

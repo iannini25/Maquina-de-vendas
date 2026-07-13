@@ -1,12 +1,12 @@
 import { timingSafeEqual } from "node:crypto";
 
-import { QUEUES } from "@vendaflow/core";
-import { prisma } from "@vendaflow/db";
+import { QUEUES } from "@sales4u/core";
+import { prisma } from "@sales4u/db";
 import {
   isEvolutionMessageEvent,
   normalizePhone,
   parseWebhookPayload,
-} from "@vendaflow/messaging";
+} from "@sales4u/messaging";
 import { NextResponse } from "next/server";
 
 import { publishSse } from "@/lib/events";

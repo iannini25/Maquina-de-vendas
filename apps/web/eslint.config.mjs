@@ -1,4 +1,4 @@
-import shared from "@vendaflow/eslint-config";
+import shared from "@sales4u/eslint-config";
 
 export default [
   ...shared,

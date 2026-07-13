@@ -1,8 +1,8 @@
 import { Queue } from "bullmq";
 
-import { QUEUES } from "@vendaflow/core";
-import { prisma, type Prisma } from "@vendaflow/db";
-import type { EmailStructure } from "@vendaflow/emails";
+import { QUEUES } from "@sales4u/core";
+import { prisma, type Prisma } from "@sales4u/db";
+import type { EmailStructure } from "@sales4u/emails";
 
 import { EMAIL_JOBS, OUTBOUND_JOBS } from "../payloads.js";
 import { DEFAULT_JOB_OPTIONS } from "../queues.js";

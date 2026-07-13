@@ -1,4 +1,4 @@
-import type { Prisma } from "@vendaflow/db";
+import type { Prisma } from "@sales4u/db";
 import { describe, expect, it } from "vitest";
 
 import {

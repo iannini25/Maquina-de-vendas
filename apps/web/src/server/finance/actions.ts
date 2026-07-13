@@ -2,7 +2,7 @@
 
 import { createHmac } from "node:crypto";
 
-import type { Prisma } from "@vendaflow/db";
+import type { Prisma } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -316,7 +316,7 @@ export interface TestWebhookResult extends FinanceActionResult {
 }
 
 /** Id externo fixo do teste — criado e removido na mesma ação (não polui o ROI). */
-const TEST_EXTERNAL_ID = "TESTE-VENDAFLOW";
+const TEST_EXTERNAL_ID = "TESTE-SALES4U";
 
 function testPayloadFor(provider: CheckoutProvider): Record<string, unknown> {
   switch (provider) {
@@ -324,8 +324,8 @@ function testPayloadFor(provider: CheckoutProvider): Record<string, unknown> {
       return {
         event: "PURCHASE_APPROVED",
         data: {
-          product: { id: 0, name: "Teste VendaFlow" },
-          buyer: { name: "Compra de teste", email: "teste@vendaflow.local" },
+          product: { id: 0, name: "Teste Sales4U" },
+          buyer: { name: "Compra de teste", email: "teste@sales4u.local" },
           purchase: { transaction: TEST_EXTERNAL_ID, price: { value: 1 } },
         },
       };
@@ -334,7 +334,7 @@ function testPayloadFor(provider: CheckoutProvider): Record<string, unknown> {
         order_id: TEST_EXTERNAL_ID,
         order_status: "paid",
         Product: { product_id: "teste" },
-        Customer: { full_name: "Compra de teste", email: "teste@vendaflow.local" },
+        Customer: { full_name: "Compra de teste", email: "teste@sales4u.local" },
         Commissions: { charge_amount: 100 },
       };
     case "EDUZZ":
@@ -342,7 +342,7 @@ function testPayloadFor(provider: CheckoutProvider): Record<string, unknown> {
         event: "myeduzz.invoice_paid",
         data: {
           id: TEST_EXTERNAL_ID,
-          buyer: { name: "Compra de teste", email: "teste@vendaflow.local" },
+          buyer: { name: "Compra de teste", email: "teste@sales4u.local" },
           items: [{ productId: "teste" }],
           paid: { value: 1 },
         },
@@ -352,10 +352,10 @@ function testPayloadFor(provider: CheckoutProvider): Record<string, unknown> {
         type: "checkout.session.completed",
         data: {
           object: {
-            id: "cs_test_vendaflow",
+            id: "cs_test_sales4u",
             payment_intent: TEST_EXTERNAL_ID,
             amount_total: 100,
-            customer_details: { name: "Compra de teste", email: "teste@vendaflow.local" },
+            customer_details: { name: "Compra de teste", email: "teste@sales4u.local" },
             metadata: { product_id: "teste" },
           },
         },

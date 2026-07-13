@@ -3,8 +3,8 @@ import {
   resolveModel,
   type LlmClient,
   type ModelTier,
-} from "@vendaflow/brain";
-import { prisma } from "@vendaflow/db";
+} from "@sales4u/brain";
+import { prisma } from "@sales4u/db";
 
 import { getCredentialData } from "@/server/credentials/service";
 

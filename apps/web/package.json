@@ -1,5 +1,5 @@
 {
-  "name": "@vendaflow/web",
+  "name": "@sales4u/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,8 +14,8 @@
   "dependencies": {
     "@fontsource-variable/plus-jakarta-sans": "^5.2.0",
     "@fontsource-variable/space-grotesk": "^5.2.0",
-    "@vendaflow/core": "workspace:*",
-    "@vendaflow/db": "workspace:*",
+    "@sales4u/core": "workspace:*",
+    "@sales4u/db": "workspace:*",
     "bcryptjs": "^3.0.2",
     "ioredis": "5.10.1",
     "next": "^15.4.0",
@@ -24,10 +24,10 @@
     "react-dom": "^19.1.0",
     "zod": "^3.25.0",
     "bullmq": "^5.80.0",
-    "@vendaflow/brain": "workspace:*",
-    "@vendaflow/emails": "workspace:*",
-    "@vendaflow/messaging": "workspace:*",
-    "@vendaflow/automation": "workspace:*"
+    "@sales4u/brain": "workspace:*",
+    "@sales4u/emails": "workspace:*",
+    "@sales4u/messaging": "workspace:*",
+    "@sales4u/automation": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
@@ -35,7 +35,7 @@
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
-    "@vendaflow/eslint-config": "workspace:*",
+    "@sales4u/eslint-config": "workspace:*",
     "eslint-config-next": "^15.4.0",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.9.0",

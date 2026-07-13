@@ -3,7 +3,7 @@
  * strings (zero React em runtime).
  *
  * A shape de `EmailStructure` espelha o campo Json `EmailTemplate.structure`
- * do Prisma (@vendaflow/db).
+ * do Prisma (@sales4u/db).
  */
 
 export interface EmailButton {

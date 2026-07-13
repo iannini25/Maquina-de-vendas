@@ -1,4 +1,4 @@
-# DEPLOY — VendaFlow na VPS (Hostinger)
+# DEPLOY — Sales4U na VPS (Hostinger)
 
 Guia do zero ao ar: VPS Ubuntu 22.04/24.04, Docker, TLS automático.
 
@@ -30,14 +30,14 @@ bash setup-vps.sh
 ```
 
 O script é idempotente e faz: update do SO → swap (se RAM < 4 GB) → Docker →
-usuário `deploy` → UFW (22/80/443) → clona o repo em `/opt/vendaflow` → gera o
+usuário `deploy` → UFW (22/80/443) → clona o repo em `/opt/sales4u` → gera o
 `.env` interativo (pergunta os domínios; gera todos os segredos) → sobe o
 compose de produção → agenda backup diário 03:30 com retenção de 7 dias.
 
 ## 3. Conferir que subiu
 
 ```bash
-cd /opt/vendaflow
+cd /opt/sales4u
 docker compose -f infra/docker-compose.prod.yml ps       # tudo "healthy"
 curl -s https://app.SEUDOMINIO.com/api/health             # {"ok":true,...}
 ```
@@ -71,7 +71,7 @@ O TLS é automático (Caddy + Let's Encrypt) — só precisa do DNS propagado.
 ## 6. Atualizar o sistema
 
 ```bash
-cd /opt/vendaflow
+cd /opt/sales4u
 git pull
 docker compose -f infra/docker-compose.prod.yml up -d --build
 ```
@@ -85,12 +85,12 @@ Backup automático diário em `/backup` (pg + volumes, retenção 7 dias).
 Restaurar banco:
 
 ```bash
-cd /opt/vendaflow
-gunzip -c /backup/pg-XXXX.sql.gz | docker compose -f infra/docker-compose.prod.yml exec -T postgres psql -U vendaflow
+cd /opt/sales4u
+gunzip -c /backup/pg-XXXX.sql.gz | docker compose -f infra/docker-compose.prod.yml exec -T postgres psql -U sales4u
 ```
 
 Restaurar volumes (minio/evolution):
 
 ```bash
-docker run --rm -v vendaflow_minio_data:/data/minio -v vendaflow_evolution_instances:/data/evolution -v /backup:/backup alpine tar xzf /backup/volumes-XXXX.tar.gz -C /data
+docker run --rm -v sales4u_minio_data:/data/minio -v sales4u_evolution_instances:/data/evolution -v /backup:/backup alpine tar xzf /backup/volumes-XXXX.tar.gz -C /data
 ```

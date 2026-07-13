@@ -1,4 +1,4 @@
-import type { QueueName } from "@vendaflow/core";
+import type { QueueName } from "@sales4u/core";
 import { ANALYST_JOBS, CAMPAIGN_JOBS, POST_SALE_JOBS } from "./payloads.js";
 
 /**

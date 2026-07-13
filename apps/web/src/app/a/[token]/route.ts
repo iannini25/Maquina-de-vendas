@@ -1,4 +1,4 @@
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

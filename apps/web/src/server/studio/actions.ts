@@ -1,7 +1,7 @@
 "use server";
 
-import { QUEUES } from "@vendaflow/core";
-import type { Prisma } from "@vendaflow/db";
+import { QUEUES } from "@sales4u/core";
+import type { Prisma } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

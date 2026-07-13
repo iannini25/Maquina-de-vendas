@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { QueueName } from "@vendaflow/core";
+import type { QueueName } from "@sales4u/core";
 import {
   REPEATABLE_SCHEDULES,
   REPEATABLE_TIMEZONE,

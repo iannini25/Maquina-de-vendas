@@ -1,4 +1,4 @@
-# PROGRESS — VendaFlow / Máquina de Vendas
+# PROGRESS — Sales4U / Máquina de Vendas
 
 > Checklist vivo. Atualizado a cada commit. Este arquivo + DECISIONS.md são a memória
 > entre sessões — releia ambos ao retomar o trabalho.

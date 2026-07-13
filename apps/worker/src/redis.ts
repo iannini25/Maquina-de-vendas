@@ -1,7 +1,7 @@
 import { Redis } from "ioredis";
-import { sseChannel } from "@vendaflow/core";
+import { sseChannel } from "@sales4u/core";
 
-/** Tipos de canal SSE aceitos por sseChannel (@vendaflow/core). */
+/** Tipos de canal SSE aceitos por sseChannel (@sales4u/core). */
 export type SseKind = Parameters<typeof sseChannel>[1];
 
 /** Contrato mínimo de publicação pub/sub (satisfeito por ioredis; fácil de fakear). */

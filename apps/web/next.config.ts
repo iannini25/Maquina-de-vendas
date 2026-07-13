@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   // standalone só no build de produção (Docker/Linux): symlinks do tracing
   // falham no Windows sem Developer Mode.
   output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
-  transpilePackages: ["@vendaflow/core","@vendaflow/db","@vendaflow/brain","@vendaflow/emails","@vendaflow/messaging","@vendaflow/automation"],
+  transpilePackages: ["@sales4u/core","@sales4u/db","@sales4u/brain","@sales4u/emails","@sales4u/messaging","@sales4u/automation"],
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb",

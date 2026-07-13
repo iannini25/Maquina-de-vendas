@@ -1,4 +1,4 @@
-import type { ExpenseCategory } from "@vendaflow/db";
+import type { ExpenseCategory } from "@sales4u/db";
 
 /**
  * Categorias de despesa (rótulos do protótipo). Arquivo sem dependência de

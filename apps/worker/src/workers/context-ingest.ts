@@ -1,4 +1,4 @@
-import { chunkText, type Embedder } from "@vendaflow/brain";
+import { chunkText, type Embedder } from "@sales4u/brain";
 
 import { NotImplementedYetError } from "../errors.js";
 import {

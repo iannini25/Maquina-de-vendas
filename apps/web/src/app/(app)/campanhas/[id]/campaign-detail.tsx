@@ -96,7 +96,7 @@ export function CampaignDetail({
   ].filter(Boolean);
 
   const landingUrl = detail.landing
-    ? (detail.landing.externalUrl ?? `https://vendaflow.io/${detail.landing.slug}`)
+    ? (detail.landing.externalUrl ?? `https://sales4u.io/${detail.landing.slug}`)
     : null;
 
   const revenueValues = detail.revenueSeries.map((p) => p.cumulativeCents);

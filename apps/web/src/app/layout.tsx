@@ -6,8 +6,8 @@ import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "VendaFlow — Máquina de Vendas",
-    template: "%s · VendaFlow",
+    default: "Sales4U — Máquina de Vendas",
+    template: "%s · Sales4U",
   },
   description: "CRM com SDR de IA operando 24/7 no WhatsApp.",
 };

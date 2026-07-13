@@ -1,6 +1,6 @@
 import { Queue } from "bullmq";
-import { QUEUES } from "@vendaflow/core";
-import { prisma } from "@vendaflow/db";
+import { QUEUES } from "@sales4u/core";
+import { prisma } from "@sales4u/db";
 import { loadEnv } from "../env.js";
 import { CAMPAIGN_JOBS, OUTBOUND_JOBS } from "../payloads.js";
 import { DEFAULT_JOB_OPTIONS } from "../queues.js";

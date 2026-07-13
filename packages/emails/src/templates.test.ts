@@ -6,7 +6,7 @@ import { SEED_EMAIL_PURPOSES, SEED_EMAIL_TEMPLATES } from "./templates.js";
 const VARS: EmailVars = {
   nome: "Ana",
   produto: "Curso Alfa",
-  link_acesso: "https://app.vendaflow.com/acesso",
+  link_acesso: "https://app.sales4u.com/acesso",
   valor: "R$ 197,00",
   data: "hoje às 20h",
 };
@@ -31,10 +31,10 @@ describe("SEED_EMAIL_TEMPLATES", () => {
   it("renderiza sem deixar placeholders quando todas as variáveis são passadas", () => {
     for (const template of SEED_EMAIL_TEMPLATES) {
       const html = renderEmail(template.structure, template.bodyText, VARS, {
-        unsubscribeUrl: "https://app.vendaflow.com/unsub",
+        unsubscribeUrl: "https://app.sales4u.com/unsub",
       });
       expect(html).not.toMatch(/\{[a-z_]+\}/i);
-      expect(html).toContain("https://app.vendaflow.com/unsub");
+      expect(html).toContain("https://app.sales4u.com/unsub");
     }
   });
 

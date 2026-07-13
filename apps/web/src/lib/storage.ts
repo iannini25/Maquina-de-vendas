@@ -18,7 +18,7 @@ function loadConfig(): S3Config {
     endpoint: process.env.S3_ENDPOINT ?? "http://localhost:9000",
     accessKey: process.env.S3_ACCESS_KEY ?? "",
     secretKey: process.env.S3_SECRET_KEY ?? "",
-    bucket: process.env.S3_BUCKET ?? "vendaflow",
+    bucket: process.env.S3_BUCKET ?? "sales4u",
     region: process.env.S3_REGION ?? "us-east-1",
   };
 }
@@ -98,19 +98,71 @@ function signRequest(
   return { url: url.toString(), headers };
 }
 
+/** Cria o bucket se não existir (MinIO não cria sozinho) — auto-provisionamento. */
+async function ensureBucket(config: S3Config): Promise<void> {
+  const url = new URL(`${config.endpoint}/${config.bucket}`);
+  const now = new Date();
+  const amzDate = now.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const dateStamp = amzDate.slice(0, 8);
+  const payloadHash = sha256Hex("");
+
+  const headers: Record<string, string> = {
+    host: url.host,
+    "x-amz-date": amzDate,
+    "x-amz-content-sha256": payloadHash,
+  };
+  const signedHeaders = Object.keys(headers).sort().join(";");
+  const canonicalHeaders = Object.keys(headers)
+    .sort()
+    .map((k) => `${k}:${headers[k]}\n`)
+    .join("");
+  const canonicalRequest = ["PUT", url.pathname, "", canonicalHeaders, signedHeaders, payloadHash].join("\n");
+  const scope = `${dateStamp}/${config.region}/s3/aws4_request`;
+  const stringToSign = ["AWS4-HMAC-SHA256", amzDate, scope, sha256Hex(canonicalRequest)].join("\n");
+  const signature = createHmac("sha256", signingKey(config.secretKey, dateStamp, config.region))
+    .update(stringToSign, "utf8")
+    .digest("hex");
+  headers["authorization"] =
+    `AWS4-HMAC-SHA256 Credential=${config.accessKey}/${scope}, ` +
+    `SignedHeaders=${signedHeaders}, Signature=${signature}`;
+
+  const response = await fetch(url.toString(), {
+    method: "PUT",
+    headers,
+    signal: AbortSignal.timeout(15_000),
+  });
+  // 200 = criado; 409 (BucketAlreadyOwnedByYou) = já existe — ambos ok.
+  if (!response.ok && response.status !== 409) {
+    throw new Error(`S3 ensureBucket falhou: ${response.status} ${await response.text()}`);
+  }
+}
+
 export async function putObject(
   key: string,
   body: Buffer,
   contentType: string,
 ): Promise<{ key: string }> {
   const config = loadConfig();
-  const { url, headers } = signRequest(config, "PUT", key, body, contentType);
-  const response = await fetch(url, {
-    method: "PUT",
-    headers,
-    body: new Uint8Array(body),
-    signal: AbortSignal.timeout(30_000),
-  });
+  const attempt = async (): Promise<Response> => {
+    const { url, headers } = signRequest(config, "PUT", key, body, contentType);
+    return fetch(url, {
+      method: "PUT",
+      headers,
+      body: new Uint8Array(body),
+      signal: AbortSignal.timeout(30_000),
+    });
+  };
+
+  let response = await attempt();
+  if (response.status === 404) {
+    const text = await response.text();
+    if (text.includes("NoSuchBucket")) {
+      await ensureBucket(config);
+      response = await attempt();
+    } else if (!response.ok) {
+      throw new Error(`S3 putObject falhou: 404 ${text}`);
+    }
+  }
   if (!response.ok) {
     throw new Error(`S3 putObject falhou: ${response.status} ${await response.text()}`);
   }

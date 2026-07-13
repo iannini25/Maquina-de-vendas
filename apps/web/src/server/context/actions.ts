@@ -1,6 +1,6 @@
 "use server";
 
-import { QUEUES } from "@vendaflow/core";
+import { QUEUES } from "@sales4u/core";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

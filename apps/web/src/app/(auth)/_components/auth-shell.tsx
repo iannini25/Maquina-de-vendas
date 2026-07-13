@@ -1,4 +1,4 @@
-import { VendaFlowLogo } from "@/app/setup/_components/logo";
+import { Sales4ULogo } from "@/app/setup/_components/logo";
 
 /**
  * Split-screen 50/50 do protótipo: formulário à esquerda, painel de marketing
@@ -20,7 +20,7 @@ export function AuthShell({
       {/* Coluna esquerda — formulário */}
       <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2">
         <div className="rise-in mx-auto w-full max-w-[400px]">
-          <VendaFlowLogo />
+          <Sales4ULogo />
           <h1 className="mt-8 font-display text-[28px] font-semibold tracking-tight text-ink">
             {title}
           </h1>
@@ -74,7 +74,7 @@ export function AuthShell({
               ))}
             </div>
             <p className="mt-8 text-[11.5px] text-ink-3">
-              © 2026 VendaFlow · CRM self-host com IA
+              © 2026 Sales4U · CRM self-host com IA
             </p>
           </div>
         </div>

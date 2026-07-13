@@ -6,7 +6,7 @@ import { pino, type Logger } from "pino";
  */
 export function createLogger(nodeEnv: string, level?: string): Logger {
   return pino({
-    name: "vendaflow-worker",
+    name: "sales4u-worker",
     level: level ?? (nodeEnv === "production" ? "info" : "debug"),
   });
 }

@@ -1,4 +1,4 @@
-import { formatBRL } from "@vendaflow/core";
+import { formatBRL } from "@sales4u/core";
 
 /**
  * Tipos, constantes e helpers puros do módulo SDR de IA.

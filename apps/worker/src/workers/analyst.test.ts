@@ -1,4 +1,4 @@
-import { resolveModel, type LlmClient, type LlmRequest } from "@vendaflow/brain";
+import { resolveModel, type LlmClient, type LlmRequest } from "@sales4u/brain";
 import { describe, expect, it } from "vitest";
 
 import { NotImplementedYetError } from "../errors.js";

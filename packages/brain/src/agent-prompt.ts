@@ -1,4 +1,4 @@
-import type { ActiveHours, PlaybookSeed } from "@vendaflow/core";
+import type { ActiveHours, PlaybookSeed } from "@sales4u/core";
 
 import type { LlmMessage } from "./router.js";
 

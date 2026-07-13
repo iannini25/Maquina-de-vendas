@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Setup idempotente de VPS Ubuntu 22.04/24.04 para o VendaFlow.
+# Setup idempotente de VPS Ubuntu 22.04/24.04 para o Sales4U.
 # Uso: bash setup-vps.sh  (como root ou usuário com sudo)
 set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/iannini25/Maquina-de-vendas.git}"
-APP_DIR="${APP_DIR:-/opt/vendaflow}"
+APP_DIR="${APP_DIR:-/opt/sales4u}"
 DEPLOY_USER="${DEPLOY_USER:-deploy}"
 
 log() { echo -e "\033[1;35m[setup]\033[0m $*"; }
@@ -80,12 +80,12 @@ EVOLUTION_DOMAIN=${EVOLUTION_DOMAIN}
 AUTH_SECRET=${AUTH_SECRET}
 APP_ENCRYPTION_KEY=${APP_ENCRYPTION_KEY}
 POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-DATABASE_URL=postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+DATABASE_URL=postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/sales4u
 REDIS_URL=redis://redis:6379
 S3_ENDPOINT=http://minio:9000
-S3_ACCESS_KEY=vendaflow
+S3_ACCESS_KEY=sales4u
 S3_SECRET_KEY=${S3_SECRET}
-S3_BUCKET=vendaflow
+S3_BUCKET=sales4u
 S3_REGION=us-east-1
 AI_MODEL_CHAT=claude-sonnet-4-6
 AI_MODEL_CLASSIFIER=claude-haiku-4-5-20251001
@@ -112,7 +112,7 @@ docker compose -f infra/docker-compose.prod.yml --env-file .env up -d --build
 log "Agendando backup diário (03:30)…"
 mkdir -p /backup
 chmod +x "$APP_DIR/infra/deploy/backup.sh"
-CRON_LINE="30 3 * * * APP_DIR=$APP_DIR /bin/bash $APP_DIR/infra/deploy/backup.sh >> /var/log/vendaflow-backup.log 2>&1"
+CRON_LINE="30 3 * * * APP_DIR=$APP_DIR /bin/bash $APP_DIR/infra/deploy/backup.sh >> /var/log/sales4u-backup.log 2>&1"
 ( crontab -l 2>/dev/null | grep -v backup.sh; echo "$CRON_LINE" ) | crontab -
 
 log "Pronto! Verifique:"

@@ -1,4 +1,4 @@
-import { QUEUES, type QueueName } from "@vendaflow/core";
+import { QUEUES, type QueueName } from "@sales4u/core";
 import { Queue } from "bullmq";
 import Redis from "ioredis";
 

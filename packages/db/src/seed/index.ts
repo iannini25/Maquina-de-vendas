@@ -1,4 +1,4 @@
-import { STAGE_SEEDS } from "@vendaflow/core";
+import { STAGE_SEEDS } from "@sales4u/core";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "../client.js";
@@ -28,9 +28,9 @@ async function main() {
   });
 
   const user = await prisma.user.upsert({
-    where: { email: "demo@vendaflow.local" },
+    where: { email: "demo@sales4u.local" },
     update: {},
-    create: { name: "Demo VendaFlow", email: "demo@vendaflow.local", passwordHash },
+    create: { name: "Demo Sales4U", email: "demo@sales4u.local", passwordHash },
   });
 
   await prisma.membership.create({
@@ -82,7 +82,7 @@ async function main() {
 
   console.log("Seed concluído:");
   console.log("  workspace: Liderança IA (lideranca-ia)");
-  console.log("  login: demo@vendaflow.local / demo1234");
+  console.log("  login: demo@sales4u.local / demo1234");
 }
 
 main()

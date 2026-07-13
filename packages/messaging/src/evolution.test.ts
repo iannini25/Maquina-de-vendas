@@ -27,10 +27,10 @@ const textWebhook = {
     instanceId: "af7f5f8a-1b2c-4d5e-8f90-abcdef123456",
     source: "android",
   },
-  destination: "https://app.vendaflow.com/api/webhooks/evolution",
+  destination: "https://app.sales4u.com/api/webhooks/evolution",
   date_time: "2026-07-10T09:00:00.000Z",
   sender: "5511888888888@s.whatsapp.net",
-  server_url: "https://evo.vendaflow.com",
+  server_url: "https://evo.sales4u.com",
   apikey: "B6D9F1E2-3C4A-4B5D-9E8F-0123456789AB",
 };
 
@@ -46,7 +46,7 @@ const extendedTextWebhook = {
     },
     pushName: "João Souza",
     message: {
-      extendedTextMessage: { text: "Vi esse anúncio https://vendaflow.com/promo" },
+      extendedTextMessage: { text: "Vi esse anúncio https://sales4u.com/promo" },
     },
     messageType: "extendedTextMessage",
     messageTimestamp: "1720000100",
@@ -179,7 +179,7 @@ describe("parseWebhookPayload", () => {
       from: "5521988887777",
       timestamp: new Date(1720000100 * 1000),
       kind: "TEXT",
-      text: "Vi esse anúncio https://vendaflow.com/promo",
+      text: "Vi esse anúncio https://sales4u.com/promo",
       senderName: "João Souza",
     });
   });
@@ -348,7 +348,7 @@ describe("EvolutionProvider", () => {
     const provider = new EvolutionProvider(CONFIG);
     const result = await provider.sendFile(
       "5511999999999",
-      "https://cdn.vendaflow.com/proposta.pdf",
+      "https://cdn.sales4u.com/proposta.pdf",
       "proposta.pdf",
     );
 
@@ -358,7 +358,7 @@ describe("EvolutionProvider", () => {
     expect(JSON.parse(String(init.body))).toEqual({
       number: "5511999999999",
       mediatype: "document",
-      media: "https://cdn.vendaflow.com/proposta.pdf",
+      media: "https://cdn.sales4u.com/proposta.pdf",
       fileName: "proposta.pdf",
     });
   });

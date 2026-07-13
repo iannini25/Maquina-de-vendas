@@ -1,4 +1,4 @@
-# VendaFlow — Máquina de Vendas
+# Sales4U — Máquina de Vendas
 
 CRM multi-tenant com SDR de IA operando 24/7 no WhatsApp: atenção → lead → conversa →
 venda → relacionamento. Self-hosted (Docker) numa VPS.
@@ -42,7 +42,7 @@ pnpm setup                 # sobe docker compose dev + migra + seeda
 pnpm dev                   # web em http://localhost:3000
 ```
 
-Login demo (com `SEED_DEMO=true`): `demo@vendaflow.local` / `demo1234`.
+Login demo (com `SEED_DEMO=true`): `demo@sales4u.local` / `demo1234`.
 
 ## Qualidade
 

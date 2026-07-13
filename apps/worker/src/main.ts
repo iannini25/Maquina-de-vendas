@@ -1,5 +1,5 @@
-import { QUEUES } from "@vendaflow/core";
-import { prisma } from "@vendaflow/db";
+import { QUEUES } from "@sales4u/core";
+import { prisma } from "@sales4u/db";
 import { loadEnv } from "./env.js";
 import { startHealthServer } from "./health.js";
 import { createLogger } from "./logger.js";
@@ -9,7 +9,7 @@ import { scheduleRepeatables } from "./repeatables.js";
 import { closeWorkers, registerWorkers } from "./workers/index.js";
 
 /**
- * Boot do worker VendaFlow: valida env, conecta redis/postgres, registra
+ * Boot do worker Sales4U: valida env, conecta redis/postgres, registra
  * workers + jobs repetíveis + health check e trata graceful shutdown.
  */
 async function main(): Promise<void> {

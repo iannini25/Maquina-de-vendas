@@ -1,4 +1,4 @@
-import { detectDevice, pickVariant } from "@vendaflow/core";
+import { detectDevice, pickVariant } from "@sales4u/core";
 import type { Metadata } from "next";
 import { cookies, headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -130,7 +130,7 @@ export default async function PublicLandingPage({ params, searchParams }: PagePr
         <>
           <LandingBlocksView blocks={blocks} ctx={ctx} />
           <footer className="pb-10 text-center text-[11px] text-ink-3">
-            Feito com VendaFlow
+            Feito com Sales4U
           </footer>
         </>
       )}

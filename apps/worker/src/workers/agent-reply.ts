@@ -17,7 +17,7 @@ import {
   type EnforcementPolicy,
   type LlmClient,
   type LlmToolCall,
-} from "@vendaflow/brain";
+} from "@sales4u/brain";
 import {
   DEFAULT_ACTIVE_HOURS,
   isWithinActiveHours,
@@ -25,7 +25,7 @@ import {
   scoreToTemperature,
   type ActiveHours,
   type Autonomy,
-} from "@vendaflow/core";
+} from "@sales4u/core";
 import { NotImplementedYetError } from "../errors.js";
 import {
   AGENT_REPLY_JOBS,

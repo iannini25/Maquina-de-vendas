@@ -1,6 +1,6 @@
 import { Queue, type JobsOptions } from "bullmq";
 import type { Redis } from "ioredis";
-import { QUEUES, type QueueName } from "@vendaflow/core";
+import { QUEUES, type QueueName } from "@sales4u/core";
 
 /** Política padrão de retry/limpeza de todas as filas. */
 export const DEFAULT_JOB_OPTIONS: JobsOptions = {

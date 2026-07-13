@@ -1,6 +1,6 @@
 import { promises as dns } from "node:dns";
 
-import type { CredentialProvider } from "@vendaflow/db";
+import type { CredentialProvider } from "@sales4u/db";
 
 import { checkBucketReadWrite } from "@/lib/storage";
 

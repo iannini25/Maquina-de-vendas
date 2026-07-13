@@ -1,5 +1,5 @@
-import { AnthropicClient, VoyageEmbedder, type Embedder, type LlmClient } from "@vendaflow/brain";
-import { decryptCredentialData, prisma, type CredentialProvider } from "@vendaflow/db";
+import { AnthropicClient, VoyageEmbedder, type Embedder, type LlmClient } from "@sales4u/brain";
+import { decryptCredentialData, prisma, type CredentialProvider } from "@sales4u/db";
 
 /**
  * Leitura de credenciais por workspace no worker (decifradas).

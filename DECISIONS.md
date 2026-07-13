@@ -19,8 +19,12 @@
   extra) e carimba workspaceId em creates; modelos-filhos guardados pela relação com o pai.
 - **D007 · E-mail sem SDK do Resend.** Envio via fetch direto na API (menos deps); dev usa
   Mailpit por SMTP (nodemailer).
-- **D008 · Marca "VendaFlow".** O protótipo usa o logotipo "sales4U"; o produto segue a spec
-  ("VendaFlow / Máquina de Vendas") — layout e copy do protótipo preservados.
+- **D008 · Marca "Sales4U"** (rebrand a pedido do dono em 2026-07-13, alinhando de volta ao
+  nome do protótipo). Logo real de assets/logo-mark.png (seta roxa) na sidebar, auth e favicon.
+- **D014 · Identificadores internos continuam "sales4u".** Scope npm @sales4u/*, nomes de
+  container (sales4u-web…), banco, bucket e paths da VPS (/opt/sales4u) NÃO foram renomeados:
+  são invisíveis ao usuário final e renomeá-los em produção arriscaria dados/downtime por pura
+  cosmética. A MARCA visível é Sales4U em 100% das superfícies.
 - **D009 · unpdf para extração de PDF** no worker (única dep nova do RAG; serverless-friendly).
 - **D010 · Erros do Prisma por código, não instanceof.** Com transpilePackages existem duas
   cópias do runtime — capturar P2002 estruturalmente ((error as {code}).code === "P2002").

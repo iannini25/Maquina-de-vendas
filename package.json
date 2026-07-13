@@ -1,5 +1,5 @@
 {
-  "name": "vendaflow",
+  "name": "sales4u",
   "private": true,
   "packageManager": "pnpm@10.26.2",
   "engines": {
@@ -13,12 +13,12 @@
     "test": "turbo run test",
     "verify": "turbo run typecheck lint test build && node scripts/check-secrets.mjs",
     "setup": "docker compose -f infra/docker-compose.dev.yml up -d && pnpm db:migrate && pnpm db:seed",
-    "db:migrate": "pnpm --filter @vendaflow/db migrate:dev",
-    "db:deploy": "pnpm --filter @vendaflow/db migrate:deploy",
-    "db:seed": "pnpm --filter @vendaflow/db seed",
-    "db:studio": "pnpm --filter @vendaflow/db studio",
+    "db:migrate": "pnpm --filter @sales4u/db migrate:dev",
+    "db:deploy": "pnpm --filter @sales4u/db migrate:deploy",
+    "db:seed": "pnpm --filter @sales4u/db seed",
+    "db:studio": "pnpm --filter @sales4u/db studio",
     "gen:keys": "node scripts/gen-keys.mjs",
-    "e2e": "pnpm --filter @vendaflow/web e2e"
+    "e2e": "pnpm --filter @sales4u/web e2e"
   },
   "devDependencies": {
     "turbo": "^2.5.0"

@@ -1,4 +1,4 @@
-import type { Embedder } from "@vendaflow/brain";
+import type { Embedder } from "@sales4u/brain";
 import { describe, expect, it } from "vitest";
 
 import { NotImplementedYetError } from "../errors.js";

@@ -1,5 +1,5 @@
-import { renderEmail, type EmailStructure, type EmailVars } from "@vendaflow/emails";
-import type { Prisma, TenantDb } from "@vendaflow/db";
+import { renderEmail, type EmailStructure, type EmailVars } from "@sales4u/emails";
+import type { Prisma, TenantDb } from "@sales4u/db";
 
 import { hasAiCredential } from "@/lib/ai";
 import { formatBRL, formatDateBR } from "@/lib/format";

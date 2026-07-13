@@ -1,10 +1,10 @@
-import type { CredentialProvider, CredentialStatus } from "@vendaflow/db";
+import type { CredentialProvider, CredentialStatus } from "@sales4u/db";
 import {
   decryptCredentialData,
   encryptCredentialData,
   maskSecret,
   prisma,
-} from "@vendaflow/db";
+} from "@sales4u/db";
 
 import { randomBytes } from "node:crypto";
 

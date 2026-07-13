@@ -162,7 +162,7 @@ function ProviderSection({
               </div>
               <div className="w-52 shrink-0">
                 <Select
-                  aria-label="Produto do VendaFlow"
+                  aria-label="Produto do Sales4U"
                   value={mapping.productOfferId}
                   onChange={(event) =>
                     setMappings((current) =>

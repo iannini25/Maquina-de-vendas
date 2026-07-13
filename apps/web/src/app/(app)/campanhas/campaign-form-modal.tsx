@@ -229,7 +229,7 @@ export function CampaignFormModal({
             <option value="">Nenhuma</option>
             {options.landings.map((landing) => (
               <option key={landing.id} value={landing.id}>
-                {landing.name} · vendaflow.io/{landing.slug}
+                {landing.name} · sales4u.io/{landing.slug}
               </option>
             ))}
           </Select>

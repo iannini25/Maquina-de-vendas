@@ -5,7 +5,7 @@ import {
   createEmailSender,
   renderEmail,
   EmailSendError,
-} from "@vendaflow/emails";
+} from "@sales4u/emails";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -305,7 +305,7 @@ export async function uploadEmailLogoAction(formData: FormData): Promise<UploadL
     await putObject(key, Buffer.from(await file.arrayBuffer()), file.type);
 
     const endpoint = process.env.S3_PUBLIC_URL ?? process.env.S3_ENDPOINT ?? "http://localhost:9000";
-    const bucket = process.env.S3_BUCKET ?? "vendaflow";
+    const bucket = process.env.S3_BUCKET ?? "sales4u";
     return { ok: true, url: `${endpoint}/${bucket}/${key}` };
   } catch {
     return {
@@ -360,8 +360,8 @@ export async function sendTestEmailAction(input: unknown): Promise<SendTestResul
 
     const sender = createEmailSender({ resendApiKey: resend?.apiKey });
     const from = resend?.domain
-      ? `VendaFlow <no-reply@${resend.domain}>`
-      : "VendaFlow <teste@vendaflow.local>";
+      ? `Sales4U <no-reply@${resend.domain}>`
+      : "Sales4U <teste@sales4u.local>";
 
     await sender.send({ to, subject, html, from });
 

@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
-# Worker VendaFlow — BullMQ 24/7.
+# Worker Sales4U — BullMQ 24/7.
 # Build a partir da RAIZ do monorepo:
-#   docker build -f apps/worker/Dockerfile -t vendaflow-worker .
+#   docker build -f apps/worker/Dockerfile -t sales4u-worker .
 
 # ── Estágio 1: build ────────────────────────────────────────────────────────
 FROM node:22-alpine AS build
@@ -14,10 +14,10 @@ COPY packages ./packages
 COPY apps/worker ./apps/worker
 
 # Instala apenas o worker e suas dependências de workspace.
-RUN pnpm install --frozen-lockfile --filter @vendaflow/worker...
+RUN pnpm install --frozen-lockfile --filter @sales4u/worker...
 
-# Compila as dependências de workspace e o worker (inclui prisma generate no @vendaflow/db).
-RUN pnpm --filter @vendaflow/worker... run build
+# Compila as dependências de workspace e o worker (inclui prisma generate no @sales4u/db).
+RUN pnpm --filter @sales4u/worker... run build
 
 # Nota: sem `pnpm prune --prod` — falha com install filtrado de workspace e
 # removeria o Prisma Client gerado em node_modules. Custo: imagem um pouco

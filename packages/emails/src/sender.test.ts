@@ -14,7 +14,7 @@ const ENTRADA: EmailSendInput = {
   to: "lead@exemplo.com",
   subject: "Seu acesso chegou",
   html: "<p>Oi</p>",
-  from: "VendaFlow <no-reply@vendaflow.com>",
+  from: "Sales4U <no-reply@sales4u.com>",
 };
 
 function respostaJson(status: number, corpo: unknown): FetchResponseLike {
@@ -50,7 +50,7 @@ describe("ResendSender", () => {
     );
     const sender = new ResendSender({ apiKey: "re_abc", fetchFn: fetchMock });
 
-    const resultado = await sender.send({ ...ENTRADA, replyTo: "suporte@vendaflow.com" });
+    const resultado = await sender.send({ ...ENTRADA, replyTo: "suporte@sales4u.com" });
 
     expect(resultado).toEqual({ id: "email_123" });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -74,7 +74,7 @@ describe("ResendSender", () => {
     expect(corpo.to).toEqual([ENTRADA.to]);
     expect(corpo.subject).toBe(ENTRADA.subject);
     expect(corpo.html).toBe(ENTRADA.html);
-    expect(corpo.reply_to).toBe("suporte@vendaflow.com");
+    expect(corpo.reply_to).toBe("suporte@sales4u.com");
   });
 
   it("omite reply_to quando não informado", async () => {

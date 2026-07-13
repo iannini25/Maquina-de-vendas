@@ -1,6 +1,6 @@
-import { sseChannel } from "@vendaflow/core";
-import type { ActorType, Prisma } from "@vendaflow/db";
-import { prisma } from "@vendaflow/db";
+import { sseChannel } from "@sales4u/core";
+import type { ActorType, Prisma } from "@sales4u/db";
+import { prisma } from "@sales4u/db";
 
 import { getRedisPub } from "./redis";
 

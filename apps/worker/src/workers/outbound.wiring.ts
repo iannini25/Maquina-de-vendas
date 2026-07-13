@@ -1,5 +1,5 @@
-import { prisma, decryptCredentialData } from "@vendaflow/db";
-import { EvolutionProvider, normalizePhone } from "@vendaflow/messaging";
+import { prisma, decryptCredentialData } from "@sales4u/db";
+import { EvolutionProvider, normalizePhone } from "@sales4u/messaging";
 import { publishSse, type RedisPublisher } from "../redis.js";
 import type { Log } from "../types.js";
 import type { OutboundDeps, OutboundStatus, WhatsAppSenderPort } from "./outbound.js";

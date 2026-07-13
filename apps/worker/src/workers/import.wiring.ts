@@ -1,4 +1,4 @@
-import { prisma, type Prisma } from "@vendaflow/db";
+import { prisma, type Prisma } from "@sales4u/db";
 
 import { createSsePublisher, publishSse, type RedisPublisher } from "../redis.js";
 import { getObject as s3GetObject, s3ConfigFromEnv } from "../services/storage.js";

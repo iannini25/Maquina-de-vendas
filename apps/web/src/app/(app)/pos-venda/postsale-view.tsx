@@ -305,7 +305,7 @@ export function PostSaleView({ data }: { data: PostSalePageData }) {
         open={accessModalOpen}
         onClose={() => setAccessModalOpen(false)}
         title="Links de acesso rastreados"
-        subtitle="Como o VendaFlow mede login e tempo ativo dos seus clientes"
+        subtitle="Como o Sales4U mede login e tempo ativo dos seus clientes"
         footer={
           <Button variant="secondary" onClick={() => setAccessModalOpen(false)}>
             Fechar
@@ -315,7 +315,7 @@ export function PostSaleView({ data }: { data: PostSalePageData }) {
         <div className="space-y-4 text-[13px] leading-relaxed text-ink-2">
           <p>
             Cada venda gera um <strong className="text-ink">link rastreado</strong> no formato
-            abaixo. Entregue esse link ao cliente — ao abrir, o VendaFlow registra o primeiro
+            abaixo. Entregue esse link ao cliente — ao abrir, o Sales4U registra o primeiro
             acesso e redireciona para a sua área de membros.
           </p>
           <div className="flex items-center justify-between gap-3 rounded-[11px] border border-hairline bg-surface-2 px-3.5 py-2.5">

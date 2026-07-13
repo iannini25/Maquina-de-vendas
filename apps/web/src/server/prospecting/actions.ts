@@ -1,6 +1,6 @@
 "use server";
 
-import type { QueueName } from "@vendaflow/core";
+import type { QueueName } from "@sales4u/core";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

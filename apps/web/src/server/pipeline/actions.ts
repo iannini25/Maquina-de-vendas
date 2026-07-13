@@ -8,8 +8,8 @@ import {
   validatePlaybookMarkdown,
   QUEUES,
   type QueueName,
-} from "@vendaflow/core";
-import type { Prisma } from "@vendaflow/db";
+} from "@sales4u/core";
+import type { Prisma } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

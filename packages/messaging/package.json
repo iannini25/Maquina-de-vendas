@@ -1,5 +1,5 @@
 {
-  "name": "@vendaflow/messaging",
+  "name": "@sales4u/messaging",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@vendaflow/eslint-config": "workspace:*",
+    "@sales4u/eslint-config": "workspace:*",
     "typescript": "^5.9.0",
     "vitest": "^3.2.0",
     "eslint": "^9.30.0"

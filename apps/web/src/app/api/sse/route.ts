@@ -1,4 +1,4 @@
-import { sseChannel } from "@vendaflow/core";
+import { sseChannel } from "@sales4u/core";
 
 import { createSubscriber } from "@/lib/redis";
 import { getWorkspaceContext } from "@/lib/session";

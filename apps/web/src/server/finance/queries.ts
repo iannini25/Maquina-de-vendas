@@ -1,5 +1,5 @@
-import { computeFinanceKpis, computeForecast } from "@vendaflow/core";
-import type { ExpenseCategory } from "@vendaflow/db";
+import { computeFinanceKpis, computeForecast } from "@sales4u/core";
+import type { ExpenseCategory } from "@sales4u/db";
 
 import type { WorkspaceContext } from "@/lib/session";
 

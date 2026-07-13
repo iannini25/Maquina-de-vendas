@@ -1,4 +1,4 @@
-import type { CredentialProvider } from "@vendaflow/db";
+import type { CredentialProvider } from "@sales4u/db";
 
 /**
  * Registro dos provedores de credencial: campos, obrigatoriedade e microcopy.

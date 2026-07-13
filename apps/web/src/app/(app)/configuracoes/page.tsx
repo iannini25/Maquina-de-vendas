@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 
 import { toCoreDetailsDTO } from "@/app/setup/_components/types";
 import { requireWorkspace } from "@/lib/session";

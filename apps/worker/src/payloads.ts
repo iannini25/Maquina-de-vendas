@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * Contratos de payload de cada fila (QUEUES de @vendaflow/core).
+ * Contratos de payload de cada fila (QUEUES de @sales4u/core).
  * Outros módulos (web, automações) importam estes schemas para enfileirar
  * jobs com tipagem garantida; os handlers validam com .parse() na entrada.
  *

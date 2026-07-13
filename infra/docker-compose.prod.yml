@@ -1,4 +1,4 @@
-name: vendaflow
+name: sales4u
 
 services:
   caddy:
@@ -19,7 +19,7 @@ services:
     depends_on:
       web:
         condition: service_healthy
-    networks: [vendaflow]
+    networks: [sales4u]
 
   web:
     build:
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     env_file: [../.env]
     environment:
-      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      DATABASE_URL: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/sales4u
       REDIS_URL: redis://redis:6379
       S3_ENDPOINT: http://minio:9000
       EVOLUTION_URL: http://evolution:8080
@@ -47,7 +47,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   worker:
     build:
@@ -56,7 +56,7 @@ services:
     restart: unless-stopped
     env_file: [../.env]
     environment:
-      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      DATABASE_URL: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/sales4u
       REDIS_URL: redis://redis:6379
       S3_ENDPOINT: http://minio:9000
       EVOLUTION_URL: http://evolution:8080
@@ -73,7 +73,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   evolution:
     image: evoapicloud/evolution-api:v2.3.7
@@ -82,7 +82,7 @@ services:
       AUTHENTICATION_API_KEY: ${EVOLUTION_GLOBAL_KEY}
       DATABASE_ENABLED: "true"
       DATABASE_PROVIDER: postgresql
-      DATABASE_CONNECTION_URI: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/evolution
+      DATABASE_CONNECTION_URI: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/evolution
       CACHE_REDIS_ENABLED: "true"
       CACHE_REDIS_URI: redis://redis:6379/6
       CACHE_REDIS_PREFIX_KEY: evolution
@@ -100,24 +100,24 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   postgres:
     image: pgvector/pgvector:pg16
     restart: unless-stopped
     environment:
-      POSTGRES_USER: vendaflow
+      POSTGRES_USER: sales4u
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: vendaflow
+      POSTGRES_DB: sales4u
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./docker/init-evolution-db.sql:/docker-entrypoint-initdb.d/init-evolution-db.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U vendaflow"]
+      test: ["CMD-SHELL", "pg_isready -U sales4u"]
       interval: 10s
       timeout: 5s
       retries: 10
-    networks: [vendaflow]
+    networks: [sales4u]
 
   redis:
     image: redis:7-alpine
@@ -130,7 +130,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    networks: [vendaflow]
+    networks: [sales4u]
 
   minio:
     image: minio/minio:latest
@@ -146,10 +146,10 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-    networks: [vendaflow]
+    networks: [sales4u]
 
 networks:
-  vendaflow:
+  sales4u:
     driver: bridge
 
 volumes:

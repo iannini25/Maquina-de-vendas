@@ -1,7 +1,7 @@
 "use server";
 
-import { pickWinner, type VariantStats } from "@vendaflow/core";
-import type { Prisma } from "@vendaflow/db";
+import { pickWinner, type VariantStats } from "@sales4u/core";
+import type { Prisma } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

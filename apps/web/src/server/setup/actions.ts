@@ -2,7 +2,7 @@
 
 import { randomBytes } from "node:crypto";
 
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";

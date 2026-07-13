@@ -4,7 +4,7 @@ import {
   MIN_TYPING_DELAY_MS,
   type LlmClient,
   type LlmResponse,
-} from "@vendaflow/brain";
+} from "@sales4u/brain";
 import type { AgentReplyJobPayload, OutboundJobPayload } from "../payloads.js";
 import type { Log } from "../types.js";
 import {
@@ -205,9 +205,9 @@ function makeDeps(
       recorded.usage.push(input.feature);
     },
     urls: {
-      appUrl: "https://app.vendaflow.test",
+      appUrl: "https://app.sales4u.test",
       s3Endpoint: "http://minio:9000",
-      s3Bucket: "vendaflow",
+      s3Bucket: "sales4u",
     },
     now: () => NOW,
     log: silentLog,

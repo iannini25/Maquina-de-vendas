@@ -6,7 +6,7 @@ import { expect, test as setup } from "@playwright/test";
  */
 setup("autenticar usuário demo", async ({ page }) => {
   await page.goto("/login");
-  await page.getByRole("textbox", { name: /e-mail/i }).fill("demo@vendaflow.local");
+  await page.getByRole("textbox", { name: /e-mail/i }).fill("demo@sales4u.local");
   await page.getByRole("textbox", { name: /senha/i }).fill("demo1234");
   await page.getByRole("button", { name: /^entrar/i }).click();
 

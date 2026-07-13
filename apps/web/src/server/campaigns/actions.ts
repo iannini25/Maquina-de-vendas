@@ -339,7 +339,7 @@ export async function generateCampaignSuggestion(id: string): Promise<Suggestion
         feature: "campaign_suggestion",
         tier: "chat",
         system:
-          "Você é o analista de tráfego e funil do VendaFlow. Responda em pt-BR, sem markdown, " +
+          "Você é o analista de tráfego e funil do Sales4U. Responda em pt-BR, sem markdown, " +
           "com EXATAMENTE 1 insight acionável (1 a 2 frases) sobre a campanha a partir das métricas " +
           "reais fornecidas. Seja específico e cite números. Nunca invente dados.",
         messages: [{ role: "user", content: lines.join("\n") }],

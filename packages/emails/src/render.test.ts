@@ -5,18 +5,18 @@ import { applyVars, renderEmail, type EmailStructure, type EmailVars } from "./r
 const VARS_COMPLETAS: EmailVars = {
   nome: "Bernardo",
   produto: "Mentoria Turbo",
-  link_acesso: "https://app.vendaflow.com/acesso?t=abc",
+  link_acesso: "https://app.sales4u.com/acesso?t=abc",
   valor: "R$ 497,00",
   data: "10/07/2026",
 };
 
-const OPCOES = { unsubscribeUrl: "https://app.vendaflow.com/unsub?t=xyz" };
+const OPCOES = { unsubscribeUrl: "https://app.sales4u.com/unsub?t=xyz" };
 
 describe("applyVars", () => {
   it("substitui todas as variáveis conhecidas", () => {
     const texto = "Oi {nome}, {produto} por {valor} até {data}: {link_acesso}";
     expect(applyVars(texto, VARS_COMPLETAS)).toBe(
-      "Oi Bernardo, Mentoria Turbo por R$ 497,00 até 10/07/2026: https://app.vendaflow.com/acesso?t=abc",
+      "Oi Bernardo, Mentoria Turbo por R$ 497,00 até 10/07/2026: https://app.sales4u.com/acesso?t=abc",
     );
   });
 
@@ -46,7 +46,7 @@ describe("renderEmail", () => {
 
   it("renderiza botões com rótulo e URL com variáveis aplicadas", () => {
     const html = renderEmail(estrutura, "Corpo.", VARS_COMPLETAS, OPCOES);
-    expect(html).toContain('href="https://app.vendaflow.com/acesso?t=abc"');
+    expect(html).toContain('href="https://app.sales4u.com/acesso?t=abc"');
     expect(html).toContain("Acessar Mentoria Turbo");
   });
 

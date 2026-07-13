@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 import bcrypt from "bcryptjs";
 import { headers } from "next/headers";
 import { z } from "zod";

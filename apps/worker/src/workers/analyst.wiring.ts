@@ -1,5 +1,5 @@
-import { prisma, type MessageDirection, type Prisma } from "@vendaflow/db";
-import type { LlmClient } from "@vendaflow/brain";
+import { prisma, type MessageDirection, type Prisma } from "@sales4u/db";
+import type { LlmClient } from "@sales4u/brain";
 import { Redis } from "ioredis";
 
 import { publishSse, type RedisPublisher } from "../redis.js";

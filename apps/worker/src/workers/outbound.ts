@@ -8,7 +8,7 @@ import type { JobLike, JobProcessor, Log } from "../types.js";
  * prisma, SSE) está em outbound.wiring.ts.
  */
 
-/** Contrato mínimo do provedor — satisfeito por EvolutionProvider de @vendaflow/messaging. */
+/** Contrato mínimo do provedor — satisfeito por EvolutionProvider de @sales4u/messaging. */
 export interface WhatsAppSenderPort {
   sendText(to: string, text: string): Promise<unknown>;
   sendImage(to: string, url: string, caption?: string): Promise<unknown>;

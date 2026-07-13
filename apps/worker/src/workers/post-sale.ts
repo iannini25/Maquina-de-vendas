@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-import { applyVars, renderEmail, type EmailStructure, type EmailVars } from "@vendaflow/emails";
+import { applyVars, renderEmail, type EmailStructure, type EmailVars } from "@sales4u/emails";
 
 import { NotImplementedYetError } from "../errors.js";
 import {

@@ -1,6 +1,6 @@
 import { Worker } from "bullmq";
 import type { Redis } from "ioredis";
-import { QUEUES, type QueueName } from "@vendaflow/core";
+import { QUEUES, type QueueName } from "@sales4u/core";
 import type { WorkerEnv } from "../env.js";
 import type { RedisPublisher } from "../redis.js";
 import type { JobLike, JobProcessor, Log } from "../types.js";

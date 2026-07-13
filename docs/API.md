@@ -1,4 +1,4 @@
-# API — superfícies públicas do VendaFlow
+# API — superfícies públicas do Sales4U
 
 O painel usa Server Actions (não documentadas aqui). Esta página cobre as rotas
 HTTP expostas: webhooks, páginas públicas e integrações.

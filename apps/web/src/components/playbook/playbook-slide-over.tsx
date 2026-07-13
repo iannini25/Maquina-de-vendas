@@ -1,6 +1,6 @@
 "use client";
 
-import { pilotPlaybookMarkdown, validatePlaybookMarkdown } from "@vendaflow/core";
+import { pilotPlaybookMarkdown, validatePlaybookMarkdown } from "@sales4u/core";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";

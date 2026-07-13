@@ -1,4 +1,4 @@
-import { ALL_AGENT_ACTIONS } from "@vendaflow/core";
+import { ALL_AGENT_ACTIONS } from "@sales4u/core";
 import { describe, expect, it } from "vitest";
 
 import {

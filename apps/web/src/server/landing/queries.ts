@@ -1,4 +1,4 @@
-import type { TenantDb } from "@vendaflow/db";
+import type { TenantDb } from "@sales4u/db";
 
 import { parseBlocks, type LandingBlock } from "./blocks";
 

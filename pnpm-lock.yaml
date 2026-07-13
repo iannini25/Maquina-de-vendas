@@ -20,22 +20,22 @@ importers:
       '@fontsource-variable/space-grotesk':
         specifier: ^5.2.0
         version: 5.2.10
-      '@vendaflow/automation':
+      '@sales4u/automation':
         specifier: workspace:*
         version: link:../../packages/automation
-      '@vendaflow/brain':
+      '@sales4u/brain':
         specifier: workspace:*
         version: link:../../packages/brain
-      '@vendaflow/core':
+      '@sales4u/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@vendaflow/db':
+      '@sales4u/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@vendaflow/emails':
+      '@sales4u/emails':
         specifier: workspace:*
         version: link:../../packages/emails
-      '@vendaflow/messaging':
+      '@sales4u/messaging':
         specifier: workspace:*
         version: link:../../packages/messaging
       bcryptjs:
@@ -66,6 +66,9 @@ importers:
       '@playwright/test':
         specifier: ^1.55.0
         version: 1.61.1
+      '@sales4u/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
       '@tailwindcss/postcss':
         specifier: ^4.1.0
         version: 4.3.2
@@ -78,9 +81,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.0
         version: 19.2.3(@types/react@19.2.17)
-      '@vendaflow/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)
@@ -99,22 +99,22 @@ importers:
 
   apps/worker:
     dependencies:
-      '@vendaflow/automation':
+      '@sales4u/automation':
         specifier: workspace:*
         version: link:../../packages/automation
-      '@vendaflow/brain':
+      '@sales4u/brain':
         specifier: workspace:*
         version: link:../../packages/brain
-      '@vendaflow/core':
+      '@sales4u/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@vendaflow/db':
+      '@sales4u/db':
         specifier: workspace:*
         version: link:../../packages/db
-      '@vendaflow/emails':
+      '@sales4u/emails':
         specifier: workspace:*
         version: link:../../packages/emails
-      '@vendaflow/messaging':
+      '@sales4u/messaging':
         specifier: workspace:*
         version: link:../../packages/messaging
       bullmq:
@@ -133,12 +133,12 @@ importers:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
+      '@sales4u/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
       '@types/node':
         specifier: ^22.15.0
         version: 22.20.1
-      '@vendaflow/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)
@@ -154,14 +154,14 @@ importers:
 
   packages/automation:
     dependencies:
-      '@vendaflow/core':
+      '@sales4u/core':
         specifier: workspace:*
         version: link:../core
       zod:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
-      '@vendaflow/eslint-config':
+      '@sales4u/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
       eslint:
@@ -176,14 +176,14 @@ importers:
 
   packages/brain:
     dependencies:
-      '@vendaflow/core':
+      '@sales4u/core':
         specifier: workspace:*
         version: link:../core
       zod:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
-      '@vendaflow/eslint-config':
+      '@sales4u/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
       eslint:
@@ -202,7 +202,7 @@ importers:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
-      '@vendaflow/eslint-config':
+      '@sales4u/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
       eslint:
@@ -224,15 +224,15 @@ importers:
         specifier: ^3.0.2
         version: 3.0.3
     devDependencies:
+      '@sales4u/core':
+        specifier: workspace:*
+        version: link:../core
+      '@sales4u/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@types/node':
         specifier: ^22.15.0
         version: 22.20.1
-      '@vendaflow/core':
-        specifier: workspace:*
-        version: link:../core
-      '@vendaflow/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)
@@ -255,12 +255,12 @@ importers:
         specifier: ^7.0.0
         version: 7.0.13
     devDependencies:
+      '@sales4u/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@types/nodemailer':
         specifier: ^7.0.0
         version: 7.0.12
-      '@vendaflow/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)
@@ -289,12 +289,12 @@ importers:
         specifier: ^3.25.0
         version: 3.25.76
     devDependencies:
+      '@sales4u/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.1
-      '@vendaflow/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       eslint:
         specifier: ^9.30.0
         version: 9.39.5(jiti@2.7.0)

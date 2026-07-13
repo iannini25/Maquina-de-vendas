@@ -4,7 +4,7 @@ import {
   type ActiveHours,
   type Autonomy,
   type CadenceConfig,
-} from "@vendaflow/core";
+} from "@sales4u/core";
 import type { FlowDefinition, FlowStep, SendChannel } from "./flow-types.js";
 
 /**

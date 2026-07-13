@@ -1,5 +1,5 @@
-import type { Embedder } from "@vendaflow/brain";
-import { Prisma, prisma } from "@vendaflow/db";
+import type { Embedder } from "@sales4u/brain";
+import { Prisma, prisma } from "@sales4u/db";
 
 import type { Log } from "../types.js";
 import { getWorkspaceEmbedder } from "./credentials.js";

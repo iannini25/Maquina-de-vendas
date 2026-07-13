@@ -1,4 +1,4 @@
-import type { Autonomy } from "@vendaflow/core";
+import type { Autonomy } from "@sales4u/core";
 
 import type { LlmToolCall, ToolSpec } from "./router.js";
 
@@ -177,7 +177,7 @@ export const AGENT_TOOLS: ToolSpec[] = [
 // Enforcement (guardrails)
 // ---------------------------------------------------------------------------
 
-/** Valores espelham o enum ApprovalKind do Prisma (@vendaflow/db). */
+/** Valores espelham o enum ApprovalKind do Prisma (@sales4u/db). */
 export type ApprovalKindString =
   | "SEND_PAYMENT_LINK"
   | "DISCOUNT"

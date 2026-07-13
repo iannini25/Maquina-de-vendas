@@ -1,4 +1,4 @@
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 import bcrypt from "bcryptjs";
 import NextAuth, { type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";

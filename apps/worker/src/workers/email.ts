@@ -8,7 +8,7 @@ import type { JobLike, JobProcessor, Log } from "../types.js";
  * email.wiring.ts.
  */
 
-/** Contrato mínimo do remetente — satisfeito por createEmailSender de @vendaflow/emails. */
+/** Contrato mínimo do remetente — satisfeito por createEmailSender de @sales4u/emails. */
 export interface EmailSenderPort {
   send(input: { to: string; subject: string; html: string; from?: string }): Promise<unknown>;
 }

@@ -4,12 +4,12 @@ import { loadEnv } from "./env.js";
 /** Ambiente mínimo válido para os testes. */
 function validEnv(): Record<string, string> {
   return {
-    DATABASE_URL: "postgresql://vendaflow:vendaflow@localhost:5432/vendaflow",
+    DATABASE_URL: "postgresql://sales4u:sales4u@localhost:5432/sales4u",
     REDIS_URL: "redis://localhost:6379",
     S3_ENDPOINT: "http://localhost:9000",
     S3_ACCESS_KEY: "minio",
     S3_SECRET_KEY: "minio123",
-    S3_BUCKET: "vendaflow",
+    S3_BUCKET: "sales4u",
     S3_REGION: "us-east-1",
     EVOLUTION_URL: "http://localhost:8080",
     APP_ENCRYPTION_KEY: "chave-base64",

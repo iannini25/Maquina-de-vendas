@@ -12,7 +12,7 @@ import {
 const config: S3Config = {
   endpoint: "http://localhost:9000",
   region: "us-east-1",
-  bucket: "vendaflow",
+  bucket: "sales4u",
   accessKey: "minio",
   secretKey: "minio123",
 };
@@ -23,7 +23,7 @@ describe("signGetRequest", () => {
   it("monta URL path-style e headers SigV4 com escopo do dia/região", () => {
     const { url, headers } = signGetRequest(config, "context/guia.pdf", fixedNow);
 
-    expect(url).toBe("http://localhost:9000/vendaflow/context/guia.pdf");
+    expect(url).toBe("http://localhost:9000/sales4u/context/guia.pdf");
     expect(headers["x-amz-date"]).toBe("20260711T031500Z");
     expect(headers["x-amz-content-sha256"]).toBe(
       "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -44,7 +44,7 @@ describe("signGetRequest", () => {
     const { url } = signGetRequest(config, "pasta com espaço/arquivo (1).pdf", fixedNow);
 
     expect(url).toBe(
-      "http://localhost:9000/vendaflow/pasta%20com%20espa%C3%A7o/arquivo%20%281%29.pdf",
+      "http://localhost:9000/sales4u/pasta%20com%20espa%C3%A7o/arquivo%20%281%29.pdf",
     );
   });
 });
@@ -61,7 +61,7 @@ describe("getObject", () => {
     const result = await getObject(config, "context/x.bin", fetchFn, fixedNow);
 
     expect([...result]).toEqual([1, 2, 3]);
-    expect(requests[0]?.url).toBe("http://localhost:9000/vendaflow/context/x.bin");
+    expect(requests[0]?.url).toBe("http://localhost:9000/sales4u/context/x.bin");
     expect(requests[0]?.headers.authorization).toContain("AWS4-HMAC-SHA256");
   });
 
@@ -85,7 +85,7 @@ describe("s3ConfigFromEnv", () => {
       s3ConfigFromEnv({
         S3_ENDPOINT: "http://localhost:9000",
         S3_REGION: "us-east-1",
-        S3_BUCKET: "vendaflow",
+        S3_BUCKET: "sales4u",
         S3_ACCESS_KEY: "minio",
         S3_SECRET_KEY: "minio123",
       }),

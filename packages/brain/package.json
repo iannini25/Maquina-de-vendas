@@ -1,5 +1,5 @@
 {
-  "name": "@vendaflow/brain",
+  "name": "@sales4u/brain",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -18,11 +18,11 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@vendaflow/core": "workspace:*",
+    "@sales4u/core": "workspace:*",
     "zod": "^3.25.0"
   },
   "devDependencies": {
-    "@vendaflow/eslint-config": "workspace:*",
+    "@sales4u/eslint-config": "workspace:*",
     "typescript": "^5.9.0",
     "vitest": "^3.2.0",
     "eslint": "^9.30.0"

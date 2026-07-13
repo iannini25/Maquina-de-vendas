@@ -1,6 +1,6 @@
-# RUNBOOK — operação do VendaFlow
+# RUNBOOK — operação do Sales4U
 
-Comandos e soluções para o dia a dia. Tudo parte de `/opt/vendaflow`.
+Comandos e soluções para o dia a dia. Tudo parte de `/opt/sales4u`.
 
 ```bash
 alias dc='docker compose -f infra/docker-compose.prod.yml --env-file .env'
@@ -70,5 +70,5 @@ find /backup -mtime +7 -delete      # forçar retenção
 ```bash
 curl -s https://app.seudominio.com/api/health   # web + banco
 dc exec redis redis-cli ping                     # PONG
-dc exec postgres pg_isready -U vendaflow
+dc exec postgres pg_isready -U sales4u
 ```

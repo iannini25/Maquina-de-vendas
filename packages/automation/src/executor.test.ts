@@ -1,4 +1,4 @@
-import { DEFAULT_ACTIVE_HOURS, DEFAULT_CADENCE } from "@vendaflow/core";
+import { DEFAULT_ACTIVE_HOURS, DEFAULT_CADENCE } from "@sales4u/core";
 import { describe, expect, it } from "vitest";
 import {
   FALLBACK_CADENCE_TEMPLATE,

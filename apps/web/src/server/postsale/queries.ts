@@ -1,4 +1,4 @@
-import type { TenantDb } from "@vendaflow/db";
+import type { TenantDb } from "@sales4u/db";
 
 import { POST_SALE_FLOWS, resolveFlowSettings, type PostSaleFlowKey } from "./flows";
 

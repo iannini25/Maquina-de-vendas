@@ -1,6 +1,6 @@
 /**
  * Contratos de provedores de canal (WhatsApp, Instagram etc.).
- * Toda a camada de envio/recebimento do VendaFlow fala através
+ * Toda a camada de envio/recebimento do Sales4U fala através
  * destas interfaces — o resto do sistema não conhece a Evolution API.
  */
 

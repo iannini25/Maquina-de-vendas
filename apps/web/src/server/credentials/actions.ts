@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma, type CredentialProvider } from "@vendaflow/db";
+import { prisma, type CredentialProvider } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { z } from "zod";

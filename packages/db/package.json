@@ -1,5 +1,5 @@
 {
-  "name": "@vendaflow/db",
+  "name": "@sales4u/db",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -28,8 +28,8 @@
     "bcryptjs": "^3.0.2"
   },
   "devDependencies": {
-    "@vendaflow/core": "workspace:*",
-    "@vendaflow/eslint-config": "workspace:*",
+    "@sales4u/core": "workspace:*",
+    "@sales4u/eslint-config": "workspace:*",
     "prisma": "^6.16.0",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0",

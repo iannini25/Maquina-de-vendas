@@ -1,6 +1,6 @@
 "use server";
 
-import type { Prisma } from "@vendaflow/db";
+import type { Prisma } from "@sales4u/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

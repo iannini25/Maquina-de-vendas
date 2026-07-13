@@ -1,5 +1,5 @@
 {
-  "name": "@vendaflow/worker",
+  "name": "@sales4u/worker",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -12,21 +12,21 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@vendaflow/core": "workspace:*",
-    "@vendaflow/db": "workspace:*",
-    "@vendaflow/emails": "workspace:*",
-    "@vendaflow/messaging": "workspace:*",
+    "@sales4u/core": "workspace:*",
+    "@sales4u/db": "workspace:*",
+    "@sales4u/emails": "workspace:*",
+    "@sales4u/messaging": "workspace:*",
     "bullmq": "^5.56.0",
     "ioredis": "5.10.1",
     "pino": "^9.7.0",
     "unpdf": "^1.0.0",
     "zod": "^3.25.0",
-    "@vendaflow/brain": "workspace:*",
-    "@vendaflow/automation": "workspace:*"
+    "@sales4u/brain": "workspace:*",
+    "@sales4u/automation": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
-    "@vendaflow/eslint-config": "workspace:*",
+    "@sales4u/eslint-config": "workspace:*",
     "tsx": "^4.20.0",
     "typescript": "^5.9.0",
     "vitest": "^3.2.0",

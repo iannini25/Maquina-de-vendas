@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -163,14 +164,16 @@ export function Sidebar({
   return (
     <aside className="flex h-dvh w-[248px] shrink-0 flex-col border-r border-hairline-soft bg-surface-1">
       <Link href="/dashboard" className="flex items-center gap-2.5 px-5 py-5">
-        <span
-          className="flex size-8 items-center justify-center rounded-[10px] text-sm font-bold text-white"
-          style={{ background: "linear-gradient(135deg,#7C3AED,#A855F7)" }}
-        >
-          V
-        </span>
+        <Image
+          src="/logo.png"
+          alt=""
+          aria-hidden
+          width={32}
+          height={32}
+          className="size-8 object-contain drop-shadow-[0_4px_14px_rgba(139,92,246,.55)]"
+        />
         <span className="font-display text-[15px] font-semibold tracking-tight">
-          VendaFlow
+          Sales<span className="text-accent">4U</span>
         </span>
       </Link>
 

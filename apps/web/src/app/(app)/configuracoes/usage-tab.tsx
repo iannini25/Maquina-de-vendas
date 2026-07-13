@@ -220,7 +220,7 @@ export function UsageTab({ usage }: { usage: UsageSummaryDTO }) {
       </Table>
 
       <p className="text-[11.5px] text-ink-3">
-        Os preços são os das próprias APIs (pago direto ao provedor). O VendaFlow não cobra markup —
+        Os preços são os das próprias APIs (pago direto ao provedor). O Sales4U não cobra markup —
         é self-host.
       </p>
     </div>

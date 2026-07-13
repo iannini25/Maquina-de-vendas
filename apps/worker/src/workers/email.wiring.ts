@@ -1,5 +1,5 @@
-import { prisma, decryptCredentialData } from "@vendaflow/db";
-import { createEmailSender } from "@vendaflow/emails";
+import { prisma, decryptCredentialData } from "@sales4u/db";
+import { createEmailSender } from "@sales4u/emails";
 import type { EmailSenderPort } from "./email.js";
 
 /**

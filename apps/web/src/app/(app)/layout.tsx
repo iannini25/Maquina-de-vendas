@@ -1,4 +1,4 @@
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 
 import { GlobalOverlays } from "@/components/shell/global-overlays";
 import { Sidebar } from "@/components/shell/sidebar";

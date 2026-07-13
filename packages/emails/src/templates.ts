@@ -3,7 +3,7 @@ import type { EmailStructure } from "./render.js";
 /**
  * Templates seed de e-mail em PT-BR, prontos para popular EmailTemplate.
  * Os valores de `purpose` espelham o enum `EmailPurpose` do Prisma
- * (@vendaflow/db) — a fonte da verdade é o schema; aqui usamos literais
+ * (@sales4u/db) — a fonte da verdade é o schema; aqui usamos literais
  * para manter este pacote sem dependência do client gerado.
  */
 

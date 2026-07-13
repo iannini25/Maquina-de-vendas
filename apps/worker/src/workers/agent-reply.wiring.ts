@@ -1,8 +1,8 @@
 import { Queue } from "bullmq";
 import type { Redis } from "ioredis";
-import { QUEUES } from "@vendaflow/core";
-import { prisma } from "@vendaflow/db";
-import type { Prisma } from "@vendaflow/db";
+import { QUEUES } from "@sales4u/core";
+import { prisma } from "@sales4u/db";
+import type { Prisma } from "@sales4u/db";
 
 import { AGENT_REPLY_JOBS, OUTBOUND_JOBS, POST_SALE_JOBS } from "../payloads.js";
 import { DEFAULT_JOB_OPTIONS } from "../queues.js";

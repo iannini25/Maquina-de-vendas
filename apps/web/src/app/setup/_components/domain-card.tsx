@@ -14,7 +14,7 @@ import type { DomainSettingsDTO } from "./types";
 
 const EXAMPLE_DNS = [
   { type: "A", host: "app", value: "203.0.113.10" },
-  { type: "CNAME", host: "lp", value: "cname.vendaflow.io" },
+  { type: "CNAME", host: "lp", value: "cname.sales4u.io" },
 ];
 
 /**

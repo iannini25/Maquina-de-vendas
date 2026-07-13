@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 
-import { computeStageChange, type StageRef } from "@vendaflow/core";
-import { prisma } from "@vendaflow/db";
+import { computeStageChange, type StageRef } from "@sales4u/core";
+import { prisma } from "@sales4u/db";
 
 import { publishSse, type RedisPublisher } from "../redis.js";
 import type { Log } from "../types.js";

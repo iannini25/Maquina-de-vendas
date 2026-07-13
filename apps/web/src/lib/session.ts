@@ -1,4 +1,4 @@
-import { tenantDb, type TenantDb } from "@vendaflow/db";
+import { tenantDb, type TenantDb } from "@sales4u/db";
 import { redirect } from "next/navigation";
 
 import { auth } from "./auth";

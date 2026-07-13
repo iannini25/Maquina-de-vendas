@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { FlowDefinition } from "@vendaflow/automation";
+import type { FlowDefinition } from "@sales4u/automation";
 import { NotImplementedYetError } from "../errors.js";
 import type { AutomationJobPayload, EmailJobPayload, OutboundJobPayload } from "../payloads.js";
 import type { Log } from "../types.js";

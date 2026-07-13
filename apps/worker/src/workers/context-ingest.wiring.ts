@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { prisma, type Prisma } from "@vendaflow/db";
+import { prisma, type Prisma } from "@sales4u/db";
 import { Redis } from "ioredis";
 
 import { publishSse, type RedisPublisher } from "../redis.js";

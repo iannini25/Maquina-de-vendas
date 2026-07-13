@@ -7,15 +7,15 @@ COPY pnpm-workspace.yaml package.json pnpm-lock.yaml turbo.json tsconfig.base.js
 COPY apps/web/package.json apps/web/package.json
 COPY packages ./packages
 
-RUN pnpm install --frozen-lockfile --filter @vendaflow/web... --filter @vendaflow/db
+RUN pnpm install --frozen-lockfile --filter @sales4u/web... --filter @sales4u/db
 
 COPY apps/web ./apps/web
 
 # Prisma client + build dos pacotes + Next standalone
-RUN pnpm --filter @vendaflow/db generate \
-  && pnpm --filter @vendaflow/core build \
-  && pnpm --filter @vendaflow/db build \
-  && pnpm --filter "@vendaflow/web^..." build \
+RUN pnpm --filter @sales4u/db generate \
+  && pnpm --filter @sales4u/core build \
+  && pnpm --filter @sales4u/db build \
+  && pnpm --filter "@sales4u/web^..." build \
   && cd apps/web && BUILD_STANDALONE=1 pnpm build
 
 # ── Runtime ──────────────────────────────────────────────────────────────

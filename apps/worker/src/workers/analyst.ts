@@ -1,4 +1,4 @@
-import { resolveModel, type LlmClient } from "@vendaflow/brain";
+import { resolveModel, type LlmClient } from "@sales4u/brain";
 
 import { NotImplementedYetError } from "../errors.js";
 import { ANALYST_JOBS, analystJobSchema, type AnalystJobPayload } from "../payloads.js";

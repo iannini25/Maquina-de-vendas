@@ -2,7 +2,7 @@
 
 import { randomBytes } from "node:crypto";
 
-import { computeStageChange, formatBRL, STAGE_SEEDS, type StageRef } from "@vendaflow/core";
+import { computeStageChange, formatBRL, STAGE_SEEDS, type StageRef } from "@sales4u/core";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

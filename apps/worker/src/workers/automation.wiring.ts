@@ -7,8 +7,8 @@ import {
   stageSeedByKey,
   type ActiveHours,
   type CadenceConfig,
-} from "@vendaflow/core";
-import { prisma, type Prisma } from "@vendaflow/db";
+} from "@sales4u/core";
+import { prisma, type Prisma } from "@sales4u/db";
 import { loadEnv } from "../env.js";
 import {
   AUTOMATION_JOBS,

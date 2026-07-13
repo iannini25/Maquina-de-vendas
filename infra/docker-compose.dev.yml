@@ -1,19 +1,19 @@
-name: vendaflow-dev
+name: sales4u-dev
 
 services:
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: vendaflow
-      POSTGRES_PASSWORD: vendaflow
-      POSTGRES_DB: vendaflow
+      POSTGRES_USER: sales4u
+      POSTGRES_PASSWORD: sales4u
+      POSTGRES_DB: sales4u
     ports:
       # 5434 no host: 5432/5433 são usados por outros projetos nesta máquina
       - "5434:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U vendaflow"]
+      test: ["CMD-SHELL", "pg_isready -U sales4u"]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -35,8 +35,8 @@ services:
     image: minio/minio:latest
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER: vendaflow
-      MINIO_ROOT_PASSWORD: vendaflow123
+      MINIO_ROOT_USER: sales4u
+      MINIO_ROOT_PASSWORD: sales4u123
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -56,7 +56,7 @@ services:
       AUTHENTICATION_API_KEY: dev-evolution-key
       DATABASE_ENABLED: "true"
       DATABASE_PROVIDER: postgresql
-      DATABASE_CONNECTION_URI: postgresql://vendaflow:vendaflow@postgres:5432/evolution
+      DATABASE_CONNECTION_URI: postgresql://sales4u:sales4u@postgres:5432/evolution
       CACHE_REDIS_ENABLED: "true"
       CACHE_REDIS_URI: redis://redis:6379/6
       CACHE_REDIS_PREFIX_KEY: evolution

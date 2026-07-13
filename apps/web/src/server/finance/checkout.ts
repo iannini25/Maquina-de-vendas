@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 
-import { prisma } from "@vendaflow/db";
+import { prisma } from "@sales4u/db";
 
 /** P2002 sem depender de instanceof entre cópias do runtime do Prisma. */
 function isPrismaUniqueViolation(error: unknown): boolean {

@@ -1,23 +1,23 @@
-# VendaFlow na VPS compartilhada (crminspire4u.com) — SEM proxy próprio.
+# Sales4U na VPS compartilhada (crminspire4u.com) — SEM proxy próprio.
 # O reverse proxy é o `vendas-nginx` legado (COMPARTILHADO com o Athena7 —
-# NUNCA recriar!): ele é conectado à rede `vendaflow` via
-#   docker network connect vendaflow_vendaflow vendas-nginx
-# e o default.conf do CRM aponta para http://vendaflow-web:3000.
+# NUNCA recriar!): ele é conectado à rede `sales4u` via
+#   docker network connect sales4u_sales4u vendas-nginx
+# e o default.conf do CRM aponta para http://sales4u-web:3000.
 #
-# Uso (em /opt/vendaflow/app):
+# Uso (em /opt/sales4u/app):
 #   docker compose -f infra/docker-compose.vps.yml --env-file .env up -d --build
-name: vendaflow
+name: sales4u
 
 services:
   web:
     build:
       context: ..
       dockerfile: apps/web/Dockerfile
-    container_name: vendaflow-web
+    container_name: sales4u-web
     restart: unless-stopped
     env_file: [../.env]
     environment:
-      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      DATABASE_URL: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/sales4u
       REDIS_URL: redis://redis:6379
       S3_ENDPOINT: http://minio:9000
       EVOLUTION_URL: http://evolution:8080
@@ -39,17 +39,17 @@ services:
       timeout: 5s
       retries: 10
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   worker:
     build:
       context: ..
       dockerfile: apps/worker/Dockerfile
-    container_name: vendaflow-worker
+    container_name: sales4u-worker
     restart: unless-stopped
     env_file: [../.env]
     environment:
-      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      DATABASE_URL: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/sales4u
       REDIS_URL: redis://redis:6379
       S3_ENDPOINT: http://minio:9000
       EVOLUTION_URL: http://evolution:8080
@@ -66,21 +66,21 @@ services:
       timeout: 5s
       retries: 10
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   evolution:
     image: evoapicloud/evolution-api:v2.3.7
-    container_name: vendaflow-evolution
+    container_name: sales4u-evolution
     restart: unless-stopped
     environment:
       AUTHENTICATION_API_KEY: ${EVOLUTION_GLOBAL_KEY}
       DATABASE_ENABLED: "true"
       DATABASE_PROVIDER: postgresql
-      DATABASE_CONNECTION_URI: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/evolution
+      DATABASE_CONNECTION_URI: postgresql://sales4u:${POSTGRES_PASSWORD}@postgres:5432/evolution
       CACHE_REDIS_ENABLED: "true"
       CACHE_REDIS_URI: redis://redis:6379/6
       CACHE_REDIS_PREFIX_KEY: evolution
-      SERVER_URL: http://vendaflow-evolution:8080
+      SERVER_URL: http://sales4u-evolution:8080
     depends_on:
       postgres:
         condition: service_healthy
@@ -94,29 +94,29 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    networks: [vendaflow]
+    networks: [sales4u]
 
   postgres:
     image: pgvector/pgvector:pg16
-    container_name: vendaflow-postgres
+    container_name: sales4u-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: vendaflow
+      POSTGRES_USER: sales4u
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: vendaflow
+      POSTGRES_DB: sales4u
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./docker/init-evolution-db.sql:/docker-entrypoint-initdb.d/init-evolution-db.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U vendaflow"]
+      test: ["CMD-SHELL", "pg_isready -U sales4u"]
       interval: 10s
       timeout: 5s
       retries: 10
-    networks: [vendaflow]
+    networks: [sales4u]
 
   redis:
     image: redis:7-alpine
-    container_name: vendaflow-redis
+    container_name: sales4u-redis
     restart: unless-stopped
     command: redis-server --appendonly yes
     volumes:
@@ -126,11 +126,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    networks: [vendaflow]
+    networks: [sales4u]
 
   minio:
     image: minio/minio:latest
-    container_name: vendaflow-minio
+    container_name: sales4u-minio
     restart: unless-stopped
     command: server /data
     environment:
@@ -143,10 +143,10 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-    networks: [vendaflow]
+    networks: [sales4u]
 
 networks:
-  vendaflow:
+  sales4u:
     driver: bridge
 
 volumes:

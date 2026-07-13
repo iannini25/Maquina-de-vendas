@@ -1,6 +1,6 @@
 "use client";
 
-import { validatePersonaMarkdown } from "@vendaflow/core";
+import { validatePersonaMarkdown } from "@sales4u/core";
 import { useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";

@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/toast";
 import { releaseSystemAction } from "@/server/credentials/actions";
 
 import { CredentialCardsStack } from "./cards-stack";
-import { VendaFlowLogo } from "./logo";
+import { Sales4ULogo } from "./logo";
 import type { CoreDetailsDTO, CredentialViewDTO, DomainSettingsDTO } from "./types";
 import { useCredentialStates } from "./use-credential-states";
 
@@ -70,7 +70,7 @@ export function SetupGateView({
     <main className="relative min-h-dvh pb-32">
       <div className="mx-auto w-full max-w-[860px] px-6 pt-14">
         <div className="rise-in">
-          <VendaFlowLogo />
+          <Sales4ULogo />
           <h1 className="mt-7 font-display text-[27px] font-semibold tracking-tight text-ink">
             Configuração inicial do ambiente
           </h1>

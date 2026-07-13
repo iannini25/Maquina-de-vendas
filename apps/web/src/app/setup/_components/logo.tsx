@@ -1,21 +1,21 @@
+import Image from "next/image";
+
 import { cn } from "@/components/ui/cn";
 
-/** Logo VendaFlow (tile gradiente + wordmark) usada no Setup Gate e no login. */
-export function VendaFlowLogo({ className }: { className?: string }) {
+/** Logo Sales4U (marca real + wordmark) usada no Setup Gate, login e sidebar. */
+export function Sales4ULogo({ className }: { className?: string }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span
+      <Image
+        src="/logo.png"
+        alt=""
         aria-hidden
-        className="flex size-8 items-center justify-center rounded-[10px] text-sm font-bold text-white"
-        style={{
-          background: "linear-gradient(135deg,#7C3AED,#A855F7)",
-          boxShadow: "0 0 0 1px rgba(139,92,246,.25), 0 8px 28px -8px rgba(139,92,246,.6)",
-        }}
-      >
-        V
-      </span>
+        width={32}
+        height={32}
+        className="size-8 object-contain drop-shadow-[0_4px_14px_rgba(139,92,246,.55)]"
+      />
       <span className="font-display text-[15px] font-semibold tracking-tight text-ink">
-        Venda<span className="text-accent">Flow</span>
+        Sales<span className="text-accent">4U</span>
       </span>
     </span>
   );

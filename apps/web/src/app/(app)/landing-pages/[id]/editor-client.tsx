@@ -270,7 +270,7 @@ export function LandingEditorClient({
               </h3>
               <p className="mt-1 text-[12.5px] text-ink-3">
                 {landing.kind === "EXTERNAL_URL"
-                  ? "O sistema emula a página dentro do VendaFlow e repassa o visitante para a URL abaixo."
+                  ? "O sistema emula a página dentro do Sales4U e repassa o visitante para a URL abaixo."
                   : "O HTML enviado é servido do storage. Para trocar o arquivo, crie uma nova landing page."}
               </p>
             </div>

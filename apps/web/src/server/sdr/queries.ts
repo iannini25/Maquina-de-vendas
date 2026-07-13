@@ -1,5 +1,5 @@
-import { DEFAULT_CADENCE } from "@vendaflow/core";
-import type { TenantDb } from "@vendaflow/db";
+import { DEFAULT_CADENCE } from "@sales4u/core";
+import type { TenantDb } from "@sales4u/db";
 
 import { hasAiCredential } from "@/lib/ai";
 
