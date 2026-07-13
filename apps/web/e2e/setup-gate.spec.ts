@@ -48,16 +48,19 @@ test("credencial inválida mostra estado de erro honesto", async ({ page }) => {
   await page.getByRole("button", { name: /^entrar/i }).click();
   await page.waitForURL(/\/setup/, { timeout: 30_000 });
 
-  // Preenche uma chave Anthropic falsa e verifica — a API real responde 401
+  // Preenche uma chave Anthropic falsa e verifica — a API real responde 401.
+  // Locator preciso: o card mais interno que contém o input sk-ant E o botão
+  // (um seletor frouxo clicava no Verificar de outro card).
+  const anthropicInput = page.getByPlaceholder(/sk-ant/i);
   const anthropicCard = page
-    .locator("section, div")
-    .filter({ hasText: /anthropic/i })
-    .filter({ has: page.getByRole("button", { name: /verificar/i }) })
-    .first();
-  await anthropicCard.getByPlaceholder(/sk-ant/i).first().fill("sk-ant-chave-invalida-e2e");
-  await anthropicCard.getByRole("button", { name: /^verificar$/i }).first().click();
+    .locator("section, article, div")
+    .filter({ has: anthropicInput })
+    .filter({ has: page.getByRole("button", { name: /^verificar$/i }) })
+    .last();
+  await anthropicInput.fill("sk-ant-chave-invalida-e2e");
+  await anthropicCard.getByRole("button", { name: /^verificar$/i }).click();
 
   await expect(
-    page.getByText(/api key inválida|falha|erro/i).first(),
+    anthropicCard.getByText(/api key inválida|erro/i).first(),
   ).toBeVisible({ timeout: 30_000 });
 });
