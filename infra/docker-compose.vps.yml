@@ -1,0 +1,156 @@
+# VendaFlow na VPS compartilhada (crminspire4u.com) — SEM proxy próprio.
+# O reverse proxy é o `vendas-nginx` legado (COMPARTILHADO com o Athena7 —
+# NUNCA recriar!): ele é conectado à rede `vendaflow` via
+#   docker network connect vendaflow_vendaflow vendas-nginx
+# e o default.conf do CRM aponta para http://vendaflow-web:3000.
+#
+# Uso (em /opt/vendaflow/app):
+#   docker compose -f infra/docker-compose.vps.yml --env-file .env up -d --build
+name: vendaflow
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    container_name: vendaflow-web
+    restart: unless-stopped
+    env_file: [../.env]
+    environment:
+      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://minio:9000
+      EVOLUTION_URL: http://evolution:8080
+      NODE_ENV: production
+    ports:
+      # Só loopback: atende o monitor legado (health-check.sh → localhost:3000)
+      # e facilita debug via SSH. O tráfego público entra pelo vendas-nginx.
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks: [vendaflow]
+
+  worker:
+    build:
+      context: ..
+      dockerfile: apps/worker/Dockerfile
+    container_name: vendaflow-worker
+    restart: unless-stopped
+    env_file: [../.env]
+    environment:
+      DATABASE_URL: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/vendaflow
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://minio:9000
+      EVOLUTION_URL: http://evolution:8080
+      NODE_ENV: production
+      WORKER_HEALTH_PORT: 3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks: [vendaflow]
+
+  evolution:
+    image: evoapicloud/evolution-api:v2.3.7
+    container_name: vendaflow-evolution
+    restart: unless-stopped
+    environment:
+      AUTHENTICATION_API_KEY: ${EVOLUTION_GLOBAL_KEY}
+      DATABASE_ENABLED: "true"
+      DATABASE_PROVIDER: postgresql
+      DATABASE_CONNECTION_URI: postgresql://vendaflow:${POSTGRES_PASSWORD}@postgres:5432/evolution
+      CACHE_REDIS_ENABLED: "true"
+      CACHE_REDIS_URI: redis://redis:6379/6
+      CACHE_REDIS_PREFIX_KEY: evolution
+      SERVER_URL: http://vendaflow-evolution:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - evolution_instances:/evolution/instances
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks: [vendaflow]
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: vendaflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vendaflow
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: vendaflow
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./docker/init-evolution-db.sql:/docker-entrypoint-initdb.d/init-evolution-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vendaflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [vendaflow]
+
+  redis:
+    image: redis:7-alpine
+    container_name: vendaflow-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [vendaflow]
+
+  minio:
+    image: minio/minio:latest
+    container_name: vendaflow-minio
+    restart: unless-stopped
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY}
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    networks: [vendaflow]
+
+networks:
+  vendaflow:
+    driver: bridge
+
+volumes:
+  pg_data:
+  redis_data:
+  minio_data:
+  evolution_instances:
